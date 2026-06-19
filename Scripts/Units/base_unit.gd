@@ -1,5 +1,5 @@
 extends Node2D
-class_name BaseUnits
+class_name BaseUnit
 
 @export var baseColour: Color
 @export var health: float

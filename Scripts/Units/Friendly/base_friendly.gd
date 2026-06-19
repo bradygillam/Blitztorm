@@ -1,5 +1,5 @@
-extends BaseUnits
-class_name FriendlyBaseUnits
+extends BaseUnit
+class_name FriendlyBaseUnit
 
 var spawnXTargetValue: float = 1412
 

@@ -17,7 +17,7 @@ var bottomRightCorner: Vector2
 
 var placementLineStartVector: Vector2
 
-var selectedUnits: Array[PlayerBaseUnits]
+var selectedUnits: Array[PlayerBaseUnit]
 
 func _ready() -> void:
 	selectionSquare = ColorRect.new()
@@ -80,8 +80,8 @@ func HandleUnitPlacement() -> void:
 		placementLine.clear_points()
 
 
-func GetAllPlayerUnitsInSelection(topLeftCornerIn: Vector2, bottomRightCornerIn: Vector2) -> Array[PlayerBaseUnits]:
-	var selectedUnitsOut: Array[PlayerBaseUnits] = []
+func GetAllPlayerUnitsInSelection(topLeftCornerIn: Vector2, bottomRightCornerIn: Vector2) -> Array[PlayerBaseUnit]:
+	var selectedUnitsOut: Array[PlayerBaseUnit] = []
 	var selectionBox: Rect2 = Rect2(topLeftCornerIn, bottomRightCornerIn - topLeftCornerIn).abs()
 	
 	for unit in UnitHandler.playerUnits:

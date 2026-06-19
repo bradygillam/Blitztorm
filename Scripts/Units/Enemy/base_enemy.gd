@@ -1,5 +1,5 @@
-extends BaseUnits
-class_name EnemyBaseUnits
+extends BaseUnit
+class_name EnemyBaseUnit
 
 var spawnXTargetValue: float = 8
 

@@ -6,5 +6,5 @@ enum States {
 	MOVING
 }
 
-static var playerUnits: Array[PlayerBaseUnits]
-static var enemyUnits: Array[EnemyBaseUnits]
+static var playerUnits: Array[PlayerBaseUnit]
+static var enemyUnits: Array[EnemyBaseUnit]

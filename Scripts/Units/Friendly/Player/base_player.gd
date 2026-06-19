@@ -1,5 +1,5 @@
-extends FriendlyBaseUnits
-class_name PlayerBaseUnits
+extends FriendlyBaseUnit
+class_name PlayerBaseUnit
 
 @export var selectedColour: Color
 

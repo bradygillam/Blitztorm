@@ -1,5 +1,6 @@
 class_name State
 
+var unit: BaseUnit
 var isComplete: bool
 
 func onStart() -> void:
