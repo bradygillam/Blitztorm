@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://dputtt6mxe5ib"]
+
+[ext_resource type="Script" uid="uid://djnk4p36vo1d1" path="res://Scripts/Units/Enemy/base_enemy.gd" id="1_tqk37"]
+
+[node name="Recruit_Enemy" type="Node2D" unique_id=722689849]
+script = ExtResource("1_tqk37")
+baseColour = Color(1, 0, 0, 1)
+movement_speed = 10.0
+rotation_speed = 10.0
+
+[node name="Body" type="Polygon2D" parent="." unique_id=1561557993]
+polygon = PackedVector2Array(0, -8, 6, -6, 8, 0, 6, 6, 0, 8, -6, 6, -8, 0, -6, -6)
+
+[node name="Direction" type="Polygon2D" parent="." unique_id=1020710920]
+position = Vector2(-1, -2)
+color = Color(0, 0, 0, 1)
+polygon = PackedVector2Array(8, 2, 3, 5, 3, -1)

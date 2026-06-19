@@ -1,0 +1,64 @@
+[gd_scene format=3 uid="uid://ckvgdvchcf22m"]
+
+[ext_resource type="Script" uid="uid://fueawqwqvuss" path="res://Scripts/Controls/controls_player.gd" id="2_g6ejq"]
+[ext_resource type="Script" uid="uid://8gyw1m8o43fh" path="res://Scripts/Global/PlayerPawnSpawnHandler.gd" id="3_djkur"]
+[ext_resource type="Script" uid="uid://bdnykqu22g1ff" path="res://Scripts/Global/EnemyPawnSpawnHandler.gd" id="3_h175a"]
+[ext_resource type="Script" uid="uid://da8tvlah6ipqw" path="res://Scripts/Global/WaveHandler.gd" id="4_h175a"]
+[ext_resource type="Resource" uid="uid://dqkrijtouonkl" path="res://Scripts/Resources/Enemy/Recruit_Enemy.tres" id="5_togfq"]
+
+[node name="Main" type="Node2D" unique_id=1463752294]
+
+[node name="UI" type="Node2D" parent="." unique_id=66540625]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="UI" unique_id=557074219]
+layer = 0
+
+[node name="Control" type="Control" parent="UI/CanvasLayer" unique_id=663727773]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/CanvasLayer/Control" unique_id=1084940545]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.074
+offset_bottom = -0.20000076
+
+[node name="Button" type="Button" parent="UI/CanvasLayer/Control/HBoxContainer" unique_id=19406466]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+text = "Recruit"
+
+[node name="Entities" type="Node2D" parent="." unique_id=1646741825]
+
+[node name="Enemy" type="Node2D" parent="Entities" unique_id=758674355]
+
+[node name="Friendly" type="Node2D" parent="Entities" unique_id=69329714]
+
+[node name="Player" type="Node2D" parent="Entities/Friendly" unique_id=207596766]
+
+[node name="Controls" type="Node2D" parent="." unique_id=1126738784]
+script = ExtResource("2_g6ejq")
+
+[node name="GameManager" type="Node2D" parent="." unique_id=1065765587]
+
+[node name="PlayerUnitSpawnHandler" type="Node2D" parent="GameManager" unique_id=538984334]
+script = ExtResource("3_djkur")
+
+[node name="EnemyUnitSpawnHandler" type="Node2D" parent="GameManager" unique_id=1793196754]
+script = ExtResource("3_h175a")
+
+[node name="WaveHandler" type="Node2D" parent="GameManager" unique_id=388909341]
+script = ExtResource("4_h175a")
+recruitData = ExtResource("5_togfq")
+
+[node name="WaveTimer" type="Timer" parent="GameManager/WaveHandler" unique_id=1169303678]
+wait_time = 3.0
+autostart = true
+
+[connection signal="button_up" from="UI/CanvasLayer/Control/HBoxContainer/Button" to="GameManager/PlayerUnitSpawnHandler" method="SpawnRecruit"]
+[connection signal="timeout" from="GameManager/WaveHandler/WaveTimer" to="GameManager/WaveHandler" method="SpawnWave"]
