@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://cvrpk6s5w4qub"]
+
+[ext_resource type="Script" uid="uid://bc18j52rek10e" path="res://Scripts/Units/States/EnemyIdle.gd" id="1_evkn3"]
+
+[node name="EnemyIdle" type="Node2D" unique_id=1685020935 node_paths=PackedStringArray("idleTimer")]
+script = ExtResource("1_evkn3")
+idleTimer = NodePath("Timer")
+
+[node name="Timer" type="Timer" parent="." unique_id=1174688374]
+one_shot = true

@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://bq6khx6a5tmax"]
+
+[ext_resource type="Script" uid="uid://xrdk56fgreuj" path="res://Scripts/Units/States/FriendlyTarget.gd" id="1_m366j"]
+
+[node name="FriendlyTarget" type="Node2D" unique_id=1685020935 node_paths=PackedStringArray("targetTimer")]
+script = ExtResource("1_m366j")
+targetTimer = NodePath("Timer")
+
+[node name="Timer" type="Timer" parent="." unique_id=649568612]

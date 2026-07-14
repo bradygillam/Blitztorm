@@ -1,0 +1,57 @@
+[gd_scene format=3 uid="uid://dbribq8ubxx03"]
+
+[ext_resource type="Script" uid="uid://euew7mlpqvr4" path="res://Scripts/Units/Friendly/Player/base_player.gd" id="1_y3pkf"]
+[ext_resource type="Resource" uid="uid://lcdlju5d47mq" path="res://Scripts/Resources/Friendly/Elite_Friendly.tres" id="2_y3pkf"]
+[ext_resource type="PackedScene" uid="uid://bad5qptc3k7rr" path="res://Scripts/Units/States/SceneStates/StateMachine.tscn" id="3_g8cfe"]
+[ext_resource type="PackedScene" uid="uid://d368ru3ogrpjs" path="res://Scripts/Units/States/SceneStates/FriendlySpawn.tscn" id="4_wsmxo"]
+[ext_resource type="PackedScene" uid="uid://bh5sifxqncotb" path="res://Scripts/Units/States/SceneStates/FriendlyIdle.tscn" id="5_58obc"]
+[ext_resource type="PackedScene" uid="uid://ri6bu8dcuhqu" path="res://Scripts/Units/States/SceneStates/FriendlyMove.tscn" id="6_0irts"]
+[ext_resource type="PackedScene" uid="uid://bq6khx6a5tmax" path="res://Scripts/Units/States/SceneStates/FriendlyTarget.tscn" id="7_xqey0"]
+[ext_resource type="PackedScene" uid="uid://ctqpj53f1n30q" path="res://Scripts/Units/States/SceneStates/FriendlyDead.tscn" id="8_g8cfe"]
+[ext_resource type="PackedScene" uid="uid://bkr5omlt0llw5" path="res://Scripts/Units/States/SceneStates/FriendlyAttack.tscn" id="9_wsmxo"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_wsmxo"]
+radius = 9.0
+
+[node name="Elite_Player" type="Node2D" unique_id=722689849]
+script = ExtResource("1_y3pkf")
+selectedColour = Color(0.33333334, 0.33333334, 0, 1)
+unitData = ExtResource("2_y3pkf")
+baseColour = Color(0, 0.33333334, 0, 1)
+
+[node name="Area2D" type="Area2D" parent="." unique_id=2146679284]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1292352509]
+shape = SubResource("CircleShape2D_wsmxo")
+
+[node name="Body" type="Polygon2D" parent="." unique_id=1561557993]
+polygon = PackedVector2Array(0, -8, 6, -6, 8, 0, 6, 6, 0, 8, -6, 6, -8, 0, -6, -6)
+
+[node name="Direction" type="Polygon2D" parent="." unique_id=1020710920]
+position = Vector2(-1, -2)
+color = Color(0, 0, 0, 1)
+polygon = PackedVector2Array(8, 2, 3, 5, 3, -1)
+
+[node name="StateMachine" parent="." unique_id=1871748933 node_paths=PackedStringArray("initialState") instance=ExtResource("3_g8cfe")]
+initialState = NodePath("FriendlySpawn")
+
+[node name="FriendlySpawn" parent="StateMachine" unique_id=1685020935 node_paths=PackedStringArray("friendly") instance=ExtResource("4_wsmxo")]
+friendly = NodePath("../..")
+
+[node name="FriendlyIdle" parent="StateMachine" unique_id=392393384 node_paths=PackedStringArray("friendly") instance=ExtResource("5_58obc")]
+friendly = NodePath("../..")
+
+[node name="FriendlyMove" parent="StateMachine" unique_id=1888412864 node_paths=PackedStringArray("friendly") instance=ExtResource("6_0irts")]
+friendly = NodePath("../..")
+
+[node name="FriendlyTarget" parent="StateMachine" unique_id=337858032 node_paths=PackedStringArray("friendly") instance=ExtResource("7_xqey0")]
+friendly = NodePath("../..")
+
+[node name="FriendlyDead" parent="StateMachine" unique_id=48876794 node_paths=PackedStringArray("friendly") instance=ExtResource("8_g8cfe")]
+friendly = NodePath("../..")
+
+[node name="FriendlyAttack" parent="StateMachine" unique_id=1269192577 node_paths=PackedStringArray("friendly") instance=ExtResource("9_wsmxo")]
+friendly = NodePath("../..")
+
+[connection signal="mouse_entered" from="Area2D" to="." method="DrawPawnInfoUI"]
+[connection signal="mouse_exited" from="Area2D" to="." method="UnDrawPawnInfoUI"]

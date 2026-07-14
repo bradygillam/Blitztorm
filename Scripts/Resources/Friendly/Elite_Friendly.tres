@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="FriendlyData" format=3 uid="uid://lcdlju5d47mq"]
+
+[ext_resource type="Script" uid="uid://chlh8sxpa63te" path="res://Scripts/Resources/Friendly/FriendlyData.gd" id="1_f6vms"]
+
+[resource]
+script = ExtResource("1_f6vms")
+Name = "Elite"
+Cost = 200
+Health = 100
+Number_Low_Attack = 1
+Number_High_Attack = 7
+Accuracy_Attack = 0.25
+Damage_Low_Attack = 15.0
+Damage_High_Attack = 90.0
+Idle_Time = 1.0
+Target_Time = 3.0
+Attack_Time = 1.0
+Rotation_Speed = 10.0
+Movement_Speed = 50.0
+metadata/_custom_type_script = "uid://chlh8sxpa63te"

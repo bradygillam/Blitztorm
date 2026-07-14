@@ -1,14 +1,16 @@
+extends Node2D
 class_name State
 
-var unit: BaseUnit
-var isComplete: bool
+signal Transitioned
 
-func onStart() -> void:
-	isComplete = false
+func Enter() -> void:
 	pass
 
-func processState(delta: float) -> void:
+func Exit() -> void:
 	pass
 
-func onExit() -> void:
+func Update(_delta: float) -> void:
+	pass
+
+func PhysicsUpdate(_delta: float) -> void:
 	pass

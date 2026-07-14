@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://ctqpj53f1n30q"]
+
+[ext_resource type="Script" uid="uid://cjuf0jcmbr28h" path="res://Scripts/Units/States/FriendlyDead.gd" id="1_6eki0"]
+
+[node name="FriendlyDead" type="Node2D" unique_id=1685020935]
+script = ExtResource("1_6eki0")

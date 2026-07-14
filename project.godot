@@ -18,11 +18,14 @@ config/icon="res://icon.svg"
 [autoload]
 
 UnitHandler="*uid://dafmr7et14j2v"
+GlobalData="*uid://c7iga8b1165gx"
 
 [display]
 
 window/size/viewport_width=1422
 window/size/viewport_height=800
+window/size/mode=3
+window/stretch/mode="canvas_items"
 
 [global_group]
 

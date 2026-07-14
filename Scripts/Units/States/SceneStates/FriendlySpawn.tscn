@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://d368ru3ogrpjs"]
+
+[ext_resource type="Script" uid="uid://dxs0fyf6krblv" path="res://Scripts/Units/States/FriendlySpawn.gd" id="1_x5lsq"]
+
+[node name="FriendlySpawn" type="Node2D" unique_id=1685020935]
+script = ExtResource("1_x5lsq")

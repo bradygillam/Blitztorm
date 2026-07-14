@@ -4,6 +4,15 @@ class_name GlobalHelper
 static var MIN_Y_POSITION_VALUE: float = 4
 static var MAX_Y_POSITION_VALUE: float = 796
 
+static var MIN_X_POSITION_VALUE: float = 8
+static var MAX_X_POSITION_VALUE: float = 1414
+
+static func GetSpawnTargetVector(currentPosition: Vector2, isEnemySpawn: bool) -> Vector2:
+	if isEnemySpawn:
+		return Vector2(MIN_X_POSITION_VALUE, currentPosition.y)
+	else:
+		return Vector2(MAX_X_POSITION_VALUE, currentPosition.y) 
+
 static func GetRandomVectorInRectangle(topLeft: Vector2, bottomRight: Vector2) -> Vector2:
 	return Vector2(randf_range(topLeft.x, bottomRight.x), randf_range(topLeft.y, bottomRight.y))
 

@@ -1,5 +1,5 @@
 extends Resource
-class_name EnemyData
+class_name FriendlyData
 
 @export var Name: String
 @export var Cost: int
@@ -20,6 +20,3 @@ class_name EnemyData
 @export_group("Movement")
 @export var Rotation_Speed: float
 @export var Movement_Speed: float
-@export var Movement_ForwardStep: float
-@export var Movement_ForwardVarience: float
-@export var Movement_VerticalVarience: float

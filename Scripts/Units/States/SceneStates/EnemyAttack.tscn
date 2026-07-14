@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://t5yrl2gf2v31"]
+
+[ext_resource type="Script" uid="uid://u604mr2lt6ce" path="res://Scripts/Units/States/EnemyAttack.gd" id="1_4lxpv"]
+
+[node name="EnemyAttack" type="Node2D" unique_id=1685020935 node_paths=PackedStringArray("attackTimer")]
+script = ExtResource("1_4lxpv")
+attackTimer = NodePath("Timer")
+
+[node name="Timer" type="Timer" parent="." unique_id=649568612]

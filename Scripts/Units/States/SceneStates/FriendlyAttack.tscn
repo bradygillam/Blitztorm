@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://bkr5omlt0llw5"]
+
+[ext_resource type="Script" uid="uid://b0wlbwot3esiv" path="res://Scripts/Units/States/FriendlyAttack.gd" id="1_b4nx1"]
+
+[node name="FriendlyAttack" type="Node2D" unique_id=1685020935 node_paths=PackedStringArray("attackTimer")]
+script = ExtResource("1_b4nx1")
+attackTimer = NodePath("Timer")
+
+[node name="Timer" type="Timer" parent="." unique_id=649568612]

@@ -1,0 +1,45 @@
+[gd_scene format=3 uid="uid://cu278xyd0bk2h"]
+
+[ext_resource type="Script" uid="uid://djnk4p36vo1d1" path="res://Scripts/Units/Enemy/base_enemy.gd" id="1_knkwd"]
+[ext_resource type="Resource" uid="uid://dadnfy4b35x84" path="res://Scripts/Resources/Enemy/Elite_Enemy.tres" id="2_6bry5"]
+[ext_resource type="PackedScene" uid="uid://bad5qptc3k7rr" path="res://Scripts/Units/States/SceneStates/StateMachine.tscn" id="4_2xl1m"]
+[ext_resource type="PackedScene" uid="uid://dwwhmnsyadbw0" path="res://Scripts/Units/States/SceneStates/EnemySpawn.tscn" id="5_qr0si"]
+[ext_resource type="PackedScene" uid="uid://ihyeuw7f0t7w" path="res://Scripts/Units/States/SceneStates/EnemyMove.tscn" id="6_gpfs1"]
+[ext_resource type="PackedScene" uid="uid://bs332atkft1o1" path="res://Scripts/Units/States/SceneStates/EnemyTarget.tscn" id="7_13x7l"]
+[ext_resource type="PackedScene" uid="uid://cvrpk6s5w4qub" path="res://Scripts/Units/States/SceneStates/EnemyIdle.tscn" id="7_vrnry"]
+[ext_resource type="PackedScene" uid="uid://b16tb34md4r4h" path="res://Scripts/Units/States/SceneStates/EnemyDead.tscn" id="8_13x7l"]
+[ext_resource type="PackedScene" uid="uid://t5yrl2gf2v31" path="res://Scripts/Units/States/SceneStates/EnemyAttack.tscn" id="9_r1ya2"]
+
+[node name="Elite_Enemy" type="Node2D" unique_id=722689849]
+script = ExtResource("1_knkwd")
+unitData = ExtResource("2_6bry5")
+baseColour = Color(0.24313726, 0, 0, 1)
+
+[node name="Body" type="Polygon2D" parent="." unique_id=1561557993]
+polygon = PackedVector2Array(0, -8, 6, -6, 8, 0, 6, 6, 0, 8, -6, 6, -8, 0, -6, -6)
+
+[node name="Direction" type="Polygon2D" parent="." unique_id=1020710920]
+position = Vector2(-1, -2)
+color = Color(0, 0, 0, 1)
+polygon = PackedVector2Array(8, 2, 3, 5, 3, -1)
+
+[node name="StateMachine" parent="." unique_id=1871748933 node_paths=PackedStringArray("initialState") instance=ExtResource("4_2xl1m")]
+initialState = NodePath("EnemySpawn")
+
+[node name="EnemySpawn" parent="StateMachine" unique_id=1685020935 node_paths=PackedStringArray("enemy") instance=ExtResource("5_qr0si")]
+enemy = NodePath("../..")
+
+[node name="EnemyMove" parent="StateMachine" unique_id=2015326510 node_paths=PackedStringArray("enemy") instance=ExtResource("6_gpfs1")]
+enemy = NodePath("../..")
+
+[node name="EnemyIdle" parent="StateMachine" unique_id=1773776271 node_paths=PackedStringArray("enemy") instance=ExtResource("7_vrnry")]
+enemy = NodePath("../..")
+
+[node name="EnemyTarget" parent="StateMachine" unique_id=2084272298 node_paths=PackedStringArray("enemy") instance=ExtResource("7_13x7l")]
+enemy = NodePath("../..")
+
+[node name="EnemyDead" parent="StateMachine" unique_id=1277123385 node_paths=PackedStringArray("enemy") instance=ExtResource("8_13x7l")]
+enemy = NodePath("../..")
+
+[node name="EnemyAttack" parent="StateMachine" unique_id=1767765195 node_paths=PackedStringArray("enemy") instance=ExtResource("9_r1ya2")]
+enemy = NodePath("../..")

@@ -1,12 +1,26 @@
 [gd_scene format=3 uid="uid://ckvgdvchcf22m"]
 
+[ext_resource type="Script" uid="uid://t42u8nxy2kh7" path="res://Scripts/Global/UnitInfoUI.gd" id="1_yg4ot"]
 [ext_resource type="Script" uid="uid://fueawqwqvuss" path="res://Scripts/Controls/controls_player.gd" id="2_g6ejq"]
 [ext_resource type="Script" uid="uid://8gyw1m8o43fh" path="res://Scripts/Global/PlayerPawnSpawnHandler.gd" id="3_djkur"]
 [ext_resource type="Script" uid="uid://bdnykqu22g1ff" path="res://Scripts/Global/EnemyPawnSpawnHandler.gd" id="3_h175a"]
 [ext_resource type="Script" uid="uid://da8tvlah6ipqw" path="res://Scripts/Global/WaveHandler.gd" id="4_h175a"]
-[ext_resource type="Resource" uid="uid://dqkrijtouonkl" path="res://Scripts/Resources/Enemy/Recruit_Enemy.tres" id="5_togfq"]
+[ext_resource type="Script" uid="uid://dsygwtwqajqkw" path="res://Scripts/Resources/Enemy/EnemyData.gd" id="5_h3nmf"]
+[ext_resource type="PackedScene" uid="uid://dputtt6mxe5ib" path="res://Scene/Units/Enemy/Recruit_Enemy.tscn" id="6_aan6j"]
+[ext_resource type="PackedScene" uid="uid://cu278xyd0bk2h" path="res://Scene/Units/Enemy/Elite_Enemy.tscn" id="6_h3nmf"]
+[ext_resource type="Resource" uid="uid://dqkrijtouonkl" path="res://Scripts/Resources/Enemy/Recruit_Enemy.tres" id="6_hueuk"]
+[ext_resource type="Resource" uid="uid://dadnfy4b35x84" path="res://Scripts/Resources/Enemy/Elite_Enemy.tres" id="8_6a8me"]
 
 [node name="Main" type="Node2D" unique_id=1463752294]
+
+[node name="BackGround" type="ColorRect" parent="." unique_id=1169182660]
+z_index = -1
+z_as_relative = false
+custom_minimum_size = Vector2(9.83, 10)
+offset_right = 1422.0
+offset_bottom = 800.0
+mouse_filter = 2
+color = Color(0.12729236, 0.35230905, 1, 0.12156863)
 
 [node name="UI" type="Node2D" parent="." unique_id=66540625]
 
@@ -20,18 +34,112 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="UI/CanvasLayer/Control" unique_id=1084940545]
+[node name="SpawnButtons" type="HBoxContainer" parent="UI/CanvasLayer/Control" unique_id=1084940545]
 layout_mode = 1
-anchors_preset = -1
-anchor_right = 1.0
-anchor_bottom = 0.074
-offset_bottom = -0.20000076
+offset_right = 164.0
+offset_bottom = 31.0
 
-[node name="Button" type="Button" parent="UI/CanvasLayer/Control/HBoxContainer" unique_id=19406466]
+[node name="Recruit" type="Button" parent="UI/CanvasLayer/Control/SpawnButtons" unique_id=19406466]
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 text = "Recruit"
+
+[node name="Elite" type="Button" parent="UI/CanvasLayer/Control/SpawnButtons" unique_id=141899439]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+text = "Elite"
+
+[node name="WaveInfo" type="HBoxContainer" parent="UI/CanvasLayer/Control" unique_id=1797865464]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -31.0
+offset_right = 164.0
+grow_vertical = 0
+
+[node name="WaveNumber" type="Label" parent="UI/CanvasLayer/Control/WaveInfo" unique_id=391080005]
+layout_mode = 2
+text = "Wave: 0"
+
+[node name="CashInfo" type="HBoxContainer" parent="UI/CanvasLayer/Control" unique_id=353272283]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -164.0
+offset_top = -31.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="CashAmount" type="Label" parent="UI/CanvasLayer/Control/CashInfo" unique_id=720506152]
+layout_mode = 2
+text = "Cash: 0"
+
+[node name="UnitInfo" type="Panel" parent="UI/CanvasLayer/Control" unique_id=1694904687]
+custom_minimum_size = Vector2(275, 120)
+layout_mode = 1
+offset_left = 54.0
+offset_top = -149.0
+offset_right = 274.0
+offset_bottom = -29.0
+script = ExtResource("1_yg4ot")
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/CanvasLayer/Control/UnitInfo" unique_id=1419718862]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -99.5
+offset_top = -52.0
+offset_right = 99.5
+offset_bottom = 52.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Row" type="HBoxContainer" parent="UI/CanvasLayer/Control/UnitInfo/MarginContainer" unique_id=267221369]
+layout_mode = 2
+
+[node name="Column1" type="VBoxContainer" parent="UI/CanvasLayer/Control/UnitInfo/MarginContainer/Row" unique_id=1476199779]
+custom_minimum_size = Vector2(90, 0)
+layout_mode = 2
+
+[node name="Name" type="Label" parent="UI/CanvasLayer/Control/UnitInfo/MarginContainer/Row/Column1" unique_id=724087349]
+layout_mode = 2
+text = "Unit: xxx"
+
+[node name="Cost" type="Label" parent="UI/CanvasLayer/Control/UnitInfo/MarginContainer/Row/Column1" unique_id=1914274834]
+layout_mode = 2
+text = "Cost: xxx"
+
+[node name="Speed" type="Label" parent="UI/CanvasLayer/Control/UnitInfo/MarginContainer/Row/Column1" unique_id=854657897]
+layout_mode = 2
+text = "Speed: xxx"
+
+[node name="Column2" type="VBoxContainer" parent="UI/CanvasLayer/Control/UnitInfo/MarginContainer/Row" unique_id=1290034793]
+layout_mode = 2
+
+[node name="Health" type="Label" parent="UI/CanvasLayer/Control/UnitInfo/MarginContainer/Row/Column2" unique_id=1845925205]
+layout_mode = 2
+text = "Health: xxx"
+
+[node name="Accuracy" type="Label" parent="UI/CanvasLayer/Control/UnitInfo/MarginContainer/Row/Column2" unique_id=2111199602]
+layout_mode = 2
+text = "Accuracy: xxx"
+
+[node name="Damage" type="Label" parent="UI/CanvasLayer/Control/UnitInfo/MarginContainer/Row/Column2" unique_id=930789141]
+layout_mode = 2
+text = "Damage: xx.x - xx.x"
+
+[node name="Shots" type="Label" parent="UI/CanvasLayer/Control/UnitInfo/MarginContainer/Row/Column2" unique_id=2108517969]
+layout_mode = 2
+text = "Shots: xxx - xxx"
 
 [node name="Entities" type="Node2D" parent="." unique_id=1646741825]
 
@@ -54,11 +162,15 @@ script = ExtResource("3_h175a")
 
 [node name="WaveHandler" type="Node2D" parent="GameManager" unique_id=388909341]
 script = ExtResource("4_h175a")
-recruitData = ExtResource("5_togfq")
+enemies = Dictionary[ExtResource("5_h3nmf"), PackedScene]({
+ExtResource("6_hueuk"): ExtResource("6_aan6j"),
+ExtResource("8_6a8me"): ExtResource("6_h3nmf")
+})
 
 [node name="WaveTimer" type="Timer" parent="GameManager/WaveHandler" unique_id=1169303678]
-wait_time = 3.0
+wait_time = 10.0
 autostart = true
 
-[connection signal="button_up" from="UI/CanvasLayer/Control/HBoxContainer/Button" to="GameManager/PlayerUnitSpawnHandler" method="SpawnRecruit"]
+[connection signal="button_up" from="UI/CanvasLayer/Control/SpawnButtons/Recruit" to="GameManager/PlayerUnitSpawnHandler" method="SpawnRecruit"]
+[connection signal="button_up" from="UI/CanvasLayer/Control/SpawnButtons/Elite" to="GameManager/PlayerUnitSpawnHandler" method="SpawnElite"]
 [connection signal="timeout" from="GameManager/WaveHandler/WaveTimer" to="GameManager/WaveHandler" method="SpawnWave"]

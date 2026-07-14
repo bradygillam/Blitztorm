@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://ri6bu8dcuhqu"]
+
+[ext_resource type="Script" uid="uid://2b7r0c2m3i4x" path="res://Scripts/Units/States/FriendlyMove.gd" id="1_ujcsi"]
+
+[node name="FriendlyMove" type="Node2D" unique_id=1685020935]
+script = ExtResource("1_ujcsi")
