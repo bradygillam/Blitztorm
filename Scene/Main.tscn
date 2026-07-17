@@ -1,10 +1,13 @@
 [gd_scene format=3 uid="uid://ckvgdvchcf22m"]
 
-[ext_resource type="Script" uid="uid://t42u8nxy2kh7" path="res://Scripts/Global/UnitInfoUI.gd" id="1_yg4ot"]
+[ext_resource type="Script" uid="uid://t42u8nxy2kh7" path="res://Scripts/UI/UnitInfoUI.gd" id="1_yg4ot"]
 [ext_resource type="Script" uid="uid://fueawqwqvuss" path="res://Scripts/Controls/controls_player.gd" id="2_g6ejq"]
-[ext_resource type="Script" uid="uid://8gyw1m8o43fh" path="res://Scripts/Global/PlayerPawnSpawnHandler.gd" id="3_djkur"]
-[ext_resource type="Script" uid="uid://bdnykqu22g1ff" path="res://Scripts/Global/EnemyPawnSpawnHandler.gd" id="3_h175a"]
-[ext_resource type="Script" uid="uid://da8tvlah6ipqw" path="res://Scripts/Global/WaveHandler.gd" id="4_h175a"]
+[ext_resource type="Script" uid="uid://dda5u2qqboihh" path="res://Scripts/World/WorldGeneration.gd" id="2_vm4ek"]
+[ext_resource type="Script" uid="uid://8gyw1m8o43fh" path="res://Scripts/Utility/PlayerPawnSpawnHandler.gd" id="3_djkur"]
+[ext_resource type="Script" uid="uid://bdnykqu22g1ff" path="res://Scripts/Utility/EnemyPawnSpawnHandler.gd" id="3_h175a"]
+[ext_resource type="PackedScene" uid="uid://dy45olw1eo3dq" path="res://Scene/Environment/Tree.tscn" id="3_i0sg4"]
+[ext_resource type="Script" uid="uid://da8tvlah6ipqw" path="res://Scripts/Utility/WaveHandler.gd" id="4_h175a"]
+[ext_resource type="PackedScene" uid="uid://j1vbotvpe44l" path="res://Scene/Environment/Rock.tscn" id="4_mr7am"]
 [ext_resource type="Script" uid="uid://dsygwtwqajqkw" path="res://Scripts/Resources/Enemy/EnemyData.gd" id="5_h3nmf"]
 [ext_resource type="PackedScene" uid="uid://dputtt6mxe5ib" path="res://Scene/Units/Enemy/Recruit_Enemy.tscn" id="6_aan6j"]
 [ext_resource type="PackedScene" uid="uid://cu278xyd0bk2h" path="res://Scene/Units/Enemy/Elite_Enemy.tscn" id="6_h3nmf"]
@@ -20,7 +23,7 @@ custom_minimum_size = Vector2(9.83, 10)
 offset_right = 1422.0
 offset_bottom = 800.0
 mouse_filter = 2
-color = Color(0.12729236, 0.35230905, 1, 0.12156863)
+color = Color(0.4532981, 0.6573992, 0.8621733, 0.12156863)
 
 [node name="UI" type="Node2D" parent="." unique_id=66540625]
 
@@ -141,6 +144,13 @@ text = "Damage: xx.x - xx.x"
 layout_mode = 2
 text = "Shots: xxx - xxx"
 
+[node name="Environment" type="Node2D" parent="." unique_id=1529469610]
+script = ExtResource("2_vm4ek")
+treePrefab = ExtResource("3_i0sg4")
+trees_max = 500
+rockPrefab = ExtResource("4_mr7am")
+rocks_max = 500
+
 [node name="Entities" type="Node2D" parent="." unique_id=1646741825]
 
 [node name="Enemy" type="Node2D" parent="Entities" unique_id=758674355]
@@ -168,7 +178,7 @@ ExtResource("8_6a8me"): ExtResource("6_h3nmf")
 })
 
 [node name="WaveTimer" type="Timer" parent="GameManager/WaveHandler" unique_id=1169303678]
-wait_time = 10.0
+wait_time = 60.0
 autostart = true
 
 [connection signal="button_up" from="UI/CanvasLayer/Control/SpawnButtons/Recruit" to="GameManager/PlayerUnitSpawnHandler" method="SpawnRecruit"]

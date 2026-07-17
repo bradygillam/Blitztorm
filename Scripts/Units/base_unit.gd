@@ -12,3 +12,6 @@ var stateMachine: StateMachine
 
 func _ready() -> void:
 	stateMachine = find_child("StateMachine")
+
+func hit() -> void:
+	pass

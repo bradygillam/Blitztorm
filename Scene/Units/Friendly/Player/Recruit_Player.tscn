@@ -17,7 +17,7 @@ radius = 9.0
 script = ExtResource("1_lpnoi")
 selectedColour = Color(1, 1, 0, 1)
 unitData = ExtResource("2_xujll")
-baseColour = Color(0, 1, 0, 1)
+baseColour = Color(0, 0.7058824, 0.9843137, 1)
 
 [node name="Area2D" type="Area2D" parent="." unique_id=1746089034]
 

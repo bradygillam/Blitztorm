@@ -34,3 +34,32 @@ static func GetMovementRectangleVectors(currentPosition: Vector2, forwardScalar:
 		bottomRightRectangle.y += dif
 	
 	return [topLeftRectangle, bottomRightRectangle]
+
+
+static func GetObjectsOnLine(start: Vector2, end: Vector2, world: World2D) -> Array:
+	var direction: Vector2 = end - start
+	var length: float = direction.length()
+
+	if length == 0:
+		return []
+		
+	var shape: RectangleShape2D = RectangleShape2D.new()
+	shape.size = Vector2(length, 2.0)
+
+	var query: PhysicsShapeQueryParameters2D = PhysicsShapeQueryParameters2D.new()
+	query.shape = shape
+	query.transform = Transform2D(
+		direction.angle(),
+		(start + end) * 0.5
+	)
+	query.collide_with_areas = true
+	query.collide_with_bodies = false
+	
+	var hits = world.direct_space_state.intersect_shape(query)
+	
+	var objectsInLine = []
+	
+	for hit in hits:
+		objectsInLine.append(hit.collider.get_parent())
+	
+	return objectsInLine

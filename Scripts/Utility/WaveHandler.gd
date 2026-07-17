@@ -14,7 +14,7 @@ func SpawnWave() -> void:
 	SpawnEnemies()
 
 func CalculateWaveCash() -> float:
-	return GlobalData.enemyStartingCash * ((float(GlobalData.waveNumber ** 2) / 50) + 2)
+	return GlobalData.enemyStartingCash# * ((float(GlobalData.waveNumber ** 2) / 50) + 2)
 
 func SpawnEnemies() -> void:
 	while GlobalData.enemyCash >= 100:

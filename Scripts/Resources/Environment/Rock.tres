@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="EnvironmentalObjectData" format=3 uid="uid://bkx8mg3tjptje"]
+
+[ext_resource type="Script" uid="uid://bpjtwurj2ym48" path="res://Scripts/Resources/Environment/EnvironmentObjectData.gd" id="1_wa2xy"]
+
+[resource]
+script = ExtResource("1_wa2xy")
+Name = "Rock"
+Size_min = 0.5
+Size_max = 3.0
+metadata/_custom_type_script = "uid://bpjtwurj2ym48"

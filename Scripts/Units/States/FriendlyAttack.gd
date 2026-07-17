@@ -28,6 +28,7 @@ func AttackEnemy() -> void:
 	for enemy: EnemyBaseUnit in friendly.enemyTargets:
 		if enemy == null:
 			continue
+		#var objectsInWay = GlobalHelper.GetObjectsOnLine(friendly.position, enemy.position, get_world_2d())
 		var numberOfAttacks: int = randi_range(friendly.unitData.Number_Low_Attack, friendly.unitData.Number_High_Attack)
 		for i in range(0, numberOfAttacks):
 			if randf() <= friendly.unitData.Accuracy_Attack:

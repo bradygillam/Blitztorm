@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://j1vbotvpe44l"]
+
+[ext_resource type="Script" uid="uid://bosy1twq3u4fa" path="res://Scripts/World/base_environmentalObject.gd" id="1_jbyxe"]
+[ext_resource type="Resource" uid="uid://bkx8mg3tjptje" path="res://Scripts/Resources/Environment/Rock.tres" id="2_fvaf6"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2q50q"]
+radius = 8.0
+
+[node name="Rock" type="Node2D" unique_id=722689849]
+script = ExtResource("1_jbyxe")
+objectData = ExtResource("2_fvaf6")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1746089034]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1887242926]
+shape = SubResource("CircleShape2D_2q50q")
+
+[node name="Body" type="Polygon2D" parent="." unique_id=1561557993]
+color = Color(0.3887896, 0.3887896, 0.38878956, 1)
+polygon = PackedVector2Array(0, -8, 6, -6, 8, 0, 6, 6, 0, 8, -6, 6, -8, 0, -6, -6)
+
+[connection signal="mouse_entered" from="Area2D" to="." method="DrawPawnInfoUI"]
+[connection signal="mouse_exited" from="Area2D" to="." method="UnDrawPawnInfoUI"]

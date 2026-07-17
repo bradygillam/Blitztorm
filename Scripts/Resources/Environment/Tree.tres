@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="EnvironmentalObjectData" format=3 uid="uid://dpji3hs2bhui6"]
+
+[ext_resource type="Script" uid="uid://bpjtwurj2ym48" path="res://Scripts/Resources/Environment/EnvironmentObjectData.gd" id="1_k42kd"]
+
+[resource]
+script = ExtResource("1_k42kd")
+Name = "Tree"
+Size_min = 1.0
+Size_max = 2.5
+metadata/_custom_type_script = "uid://bpjtwurj2ym48"

@@ -20,7 +20,7 @@ func _ready() -> void:
 	UI_damage = find_child("Damage", true, false)
 	UI_shotsPer = find_child("Shots", true, false)
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	DrawUI()
 
 func DrawPawnInfo(unitDataIn: FriendlyData, unitPositionIn: Vector2) -> void:
