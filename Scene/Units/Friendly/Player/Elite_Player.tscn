@@ -11,18 +11,33 @@
 [ext_resource type="PackedScene" uid="uid://bkr5omlt0llw5" path="res://Scripts/Units/States/SceneStates/FriendlyAttack.tscn" id="9_wsmxo"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_wsmxo"]
-radius = 9.0
+radius = 8.0
 
-[node name="Elite_Player" type="Node2D" unique_id=722689849]
+[node name="Elite_Player" type="CharacterBody2D" unique_id=388823172]
+z_index = 3
+collision_layer = 2
+collision_mask = 7
+input_pickable = true
 script = ExtResource("1_y3pkf")
 selectedColour = Color(0.33333334, 0.33333334, 0, 1)
 unitData = ExtResource("2_y3pkf")
 baseColour = Color(0.1254902, 0, 1, 1)
+deadColour = Color(0, 0, 0.05882353, 1)
 
-[node name="Area2D" type="Area2D" parent="." unique_id=2146679284]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1292352509]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1292352509]
 shape = SubResource("CircleShape2D_wsmxo")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1539285796]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=618626592]
+shape = SubResource("CircleShape2D_wsmxo")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=674034983]
+path_desired_distance = 10.0
+target_desired_distance = 1.0
+path_max_distance = 10.0
+avoidance_enabled = true
+radius = 0.01
 
 [node name="Body" type="Polygon2D" parent="." unique_id=1561557993]
 polygon = PackedVector2Array(0, -8, 6, -6, 8, 0, 6, 6, 0, 8, -6, 6, -8, 0, -6, -6)
@@ -35,20 +50,26 @@ polygon = PackedVector2Array(8, 2, 3, 5, 3, -1)
 [node name="StateMachine" parent="." unique_id=1871748933 node_paths=PackedStringArray("initialState") instance=ExtResource("3_g8cfe")]
 initialState = NodePath("FriendlySpawn")
 
-[node name="FriendlySpawn" parent="StateMachine" unique_id=1685020935 node_paths=PackedStringArray("friendly") instance=ExtResource("4_wsmxo")]
+[node name="FriendlySpawn" parent="StateMachine" unique_id=1685020935 node_paths=PackedStringArray("friendly", "navAgent", "characterAgent") instance=ExtResource("4_wsmxo")]
 friendly = NodePath("../..")
+navAgent = NodePath("../../NavigationAgent2D")
+characterAgent = NodePath("../..")
 
 [node name="FriendlyIdle" parent="StateMachine" unique_id=392393384 node_paths=PackedStringArray("friendly") instance=ExtResource("5_58obc")]
 friendly = NodePath("../..")
 
-[node name="FriendlyMove" parent="StateMachine" unique_id=1888412864 node_paths=PackedStringArray("friendly") instance=ExtResource("6_0irts")]
+[node name="FriendlyMove" parent="StateMachine" unique_id=1888412864 node_paths=PackedStringArray("friendly", "navAgent", "characterAgent") instance=ExtResource("6_0irts")]
 friendly = NodePath("../..")
+navAgent = NodePath("../../NavigationAgent2D")
+characterAgent = NodePath("../..")
 
 [node name="FriendlyTarget" parent="StateMachine" unique_id=337858032 node_paths=PackedStringArray("friendly") instance=ExtResource("7_xqey0")]
 friendly = NodePath("../..")
 
-[node name="FriendlyDead" parent="StateMachine" unique_id=48876794 node_paths=PackedStringArray("friendly") instance=ExtResource("8_g8cfe")]
+[node name="FriendlyDead" parent="StateMachine" unique_id=48876794 node_paths=PackedStringArray("friendly", "navAgent", "characterAgent") instance=ExtResource("8_g8cfe")]
 friendly = NodePath("../..")
+navAgent = NodePath("../../NavigationAgent2D")
+characterAgent = NodePath("../..")
 
 [node name="FriendlyAttack" parent="StateMachine" unique_id=1269192577 node_paths=PackedStringArray("friendly") instance=ExtResource("9_wsmxo")]
 friendly = NodePath("../..")

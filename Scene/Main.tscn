@@ -14,6 +14,20 @@
 [ext_resource type="Resource" uid="uid://dqkrijtouonkl" path="res://Scripts/Resources/Enemy/Recruit_Enemy.tres" id="6_hueuk"]
 [ext_resource type="Resource" uid="uid://dadnfy4b35x84" path="res://Scripts/Resources/Enemy/Elite_Enemy.tres" id="8_6a8me"]
 
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_i0sg4"]
+vertices = PackedVector2Array(1419.0078, 798, 2.0078125, 798, 2.9921875, 2, 1419.9922, 2)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-7, -8, 1430, -8, 1429, 808, -8, 808)])
+parsed_geometry_type = 1
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_i0sg4"]
+normal = Vector2(0, 1)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_mr7am"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_sc4dx"]
+normal = Vector2(-0.00031916698, -1)
+
 [node name="Main" type="Node2D" unique_id=1463752294]
 
 [node name="BackGround" type="ColorRect" parent="." unique_id=1169182660]
@@ -84,7 +98,7 @@ layout_mode = 2
 text = "Cash: 0"
 
 [node name="UnitInfo" type="Panel" parent="UI/CanvasLayer/Control" unique_id=1694904687]
-custom_minimum_size = Vector2(275, 120)
+custom_minimum_size = Vector2(350, 120)
 layout_mode = 1
 offset_left = 54.0
 offset_top = -149.0
@@ -117,6 +131,10 @@ layout_mode = 2
 layout_mode = 2
 text = "Unit: xxx"
 
+[node name="State" type="Label" parent="UI/CanvasLayer/Control/UnitInfo/MarginContainer/Row/Column1" unique_id=2074518383]
+layout_mode = 2
+text = "State: xxxxx"
+
 [node name="Cost" type="Label" parent="UI/CanvasLayer/Control/UnitInfo/MarginContainer/Row/Column1" unique_id=1914274834]
 layout_mode = 2
 text = "Cost: xxx"
@@ -147,9 +165,51 @@ text = "Shots: xxx - xxx"
 [node name="Environment" type="Node2D" parent="." unique_id=1529469610]
 script = ExtResource("2_vm4ek")
 treePrefab = ExtResource("3_i0sg4")
-trees_max = 500
+trees_max = 100
 rockPrefab = ExtResource("4_mr7am")
-rocks_max = 500
+rocks_max = 50
+
+[node name="PlayableNavigationRegion2D" type="NavigationRegion2D" parent="Environment" unique_id=1276607224]
+navigation_polygon = SubResource("NavigationPolygon_i0sg4")
+navigation_layers = 3
+
+[node name="WorldBoundaries" type="Node2D" parent="Environment" unique_id=2143261413]
+
+[node name="Top" type="StaticBody2D" parent="Environment/WorldBoundaries" unique_id=700742169]
+position = Vector2(0, -6)
+collision_layer = 16
+collision_mask = 6
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/WorldBoundaries/Top" unique_id=240991896]
+shape = SubResource("WorldBoundaryShape2D_i0sg4")
+
+[node name="Bottom" type="StaticBody2D" parent="Environment/WorldBoundaries" unique_id=2014094609]
+position = Vector2(0, 806)
+collision_layer = 16
+collision_mask = 6
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/WorldBoundaries/Bottom" unique_id=1908860192]
+shape = SubResource("WorldBoundaryShape2D_mr7am")
+
+[node name="Left" type="StaticBody2D" parent="Environment/WorldBoundaries" unique_id=2007329110]
+position = Vector2(-2, 0)
+collision_layer = 16
+collision_mask = 6
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/WorldBoundaries/Left" unique_id=728349979]
+position = Vector2(-4, 0)
+rotation = 1.5711155
+shape = SubResource("WorldBoundaryShape2D_sc4dx")
+
+[node name="Right" type="StaticBody2D" parent="Environment/WorldBoundaries" unique_id=1430125787]
+position = Vector2(1428, 0)
+rotation = 3.1415927
+collision_layer = 16
+collision_mask = 6
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/WorldBoundaries/Right" unique_id=1838561923]
+rotation = 1.5711155
+shape = SubResource("WorldBoundaryShape2D_sc4dx")
 
 [node name="Entities" type="Node2D" parent="." unique_id=1646741825]
 
@@ -178,7 +238,7 @@ ExtResource("8_6a8me"): ExtResource("6_h3nmf")
 })
 
 [node name="WaveTimer" type="Timer" parent="GameManager/WaveHandler" unique_id=1169303678]
-wait_time = 60.0
+wait_time = 3.0
 autostart = true
 
 [connection signal="button_up" from="UI/CanvasLayer/Control/SpawnButtons/Recruit" to="GameManager/PlayerUnitSpawnHandler" method="SpawnRecruit"]

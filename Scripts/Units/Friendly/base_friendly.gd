@@ -29,7 +29,10 @@ func TransitionDeadState() -> void:
 
 
 func DrawPawnInfoUI() -> void:
-	playerInfoUI.DrawPawnInfo(unitData, position)
+	playerInfoUI.DrawPawnInfo(unitData, position, stateMachine.currentState)
 
 func UnDrawPawnInfoUI() -> void:
 	playerInfoUI.UnDrawPawnInfoUI()
+
+func _mouse_entered() -> void:
+	pass

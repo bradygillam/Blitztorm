@@ -73,7 +73,7 @@ func HandleUnitPlacement() -> void:
 		placementLine.add_point(placementLineStartVector)
 		placementLine.add_point(get_viewport().get_mouse_position())
 	if Input.is_action_just_released("Unit_Placement"):
-		var equidistantPoints: Array[Vector2] = GetEquidistantPointsOnLine(selectedUnits.size(), placementLine.points[0], placementLine.points[1])
+		var equidistantPoints: Array[Vector2] = GetUnitDestinationPoints(selectedUnits.size(), placementLine.points[0], placementLine.points[1])
 		AssignPoints(equidistantPoints)
 		selectedUnits = []
 		placementLine.visible = false
@@ -91,16 +91,57 @@ func GetAllPlayerUnitsInSelection(topLeftCornerIn: Vector2, bottomRightCornerIn:
 	
 	return selectedUnitsOut
 
-func GetEquidistantPointsOnLine(numPointsNeeded: int, lineStart: Vector2, lineEnd: Vector2) -> Array[Vector2]:
-	var destinationVectors: Array[Vector2] = []
+
+func GetUnitDestinationPoints(numPointsNeeded: int, lineStart: Vector2, lineEnd: Vector2) -> Array[Vector2]:
+	var SPACING: float = 20
 	
 	if numPointsNeeded == 1:
 		return [(lineStart + lineEnd) / 2]
+	elif lineStart.distance_to(lineEnd) / numPointsNeeded < SPACING:
+		var numRowsInGrid: int = 4
+		return GetEquidistantPointsOnGrid(numPointsNeeded, lineStart, lineEnd, numRowsInGrid, SPACING)
+	else: 
+		return GetEquidistantPointsOnLine(numPointsNeeded, lineStart, lineEnd)
+
+
+func GetEquidistantPointsOnGrid(numPointsNeeded: int, lineStart: Vector2, lineEnd: Vector2, numRows: int, spacing: float) -> Array[Vector2]:
+	var destinationVectors: Array[Vector2] = []
+	
+	var startingVector: Vector2 = (lineStart + lineEnd) / 2
+	var numColumns: int = ceili(float(numPointsNeeded) / float(numRows))
+	
+	var gridWidth: float = float(numColumns - 1) * spacing
+	var gridHeight: float = float(numRows - 1) * spacing
+	
+	if startingVector.x + gridWidth > GlobalHelper.MAX_X_POSITION_VALUE:
+		startingVector.x = GlobalHelper.MAX_X_POSITION_VALUE - gridWidth
+	if startingVector.y + (gridHeight / 2) > GlobalHelper.MAX_Y_POSITION_VALUE:
+		startingVector.y = GlobalHelper.MAX_Y_POSITION_VALUE - (gridHeight / 2)
+	if startingVector.y - (gridHeight / 2) < GlobalHelper.MIN_Y_POSITION_VALUE:
+		startingVector.y = GlobalHelper.MIN_Y_POSITION_VALUE + (gridHeight / 2)
+	
+	for col in numColumns:
+		for row in numRows:
+			if destinationVectors.size() >= numPointsNeeded:
+				return destinationVectors
+			
+			var x = col * spacing
+			var y = (row - (numRows - 1) * 0.5) * spacing
+			
+			destinationVectors.append(startingVector + Vector2(x, y))
+	
+	return destinationVectors
+
+
+func GetEquidistantPointsOnLine(numPointsNeeded: int, lineStart: Vector2, lineEnd: Vector2) -> Array[Vector2]:
+	var destinationVectors: Array[Vector2] = []
+	
 	for i in range(numPointsNeeded):
 		var deltaDistance = float(i) / (float(numPointsNeeded) - 1)
 		destinationVectors.append(lineStart.lerp(lineEnd, deltaDistance))
 	
 	return destinationVectors
+
 
 func AssignPoints(listOfPoints: Array[Vector2]) -> void:
 	if selectedUnits.size() != listOfPoints.size():

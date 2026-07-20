@@ -1,6 +1,6 @@
 extends Node
 
-var playerStartingCash: float = 1000
+var playerStartingCash: float = 10000
 var playerCash: float = playerStartingCash
 
 var waveStartingNumber: int = 0
