@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 UnitHandler="*uid://dafmr7et14j2v"
 GlobalData="*uid://c7iga8b1165gx"
+GlobalHelper="*uid://ctr8c2wvkyfbk"
 
 [display]
 

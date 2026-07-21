@@ -34,5 +34,7 @@ func DrawPawnInfoUI() -> void:
 func UnDrawPawnInfoUI() -> void:
 	playerInfoUI.UnDrawPawnInfoUI()
 
-func _mouse_entered() -> void:
-	pass
+func TakeHit(damage: float, attackDirection: Vector2) -> void:
+	attackDirection = attackDirection.normalized()
+	unitData.Health -= damage
+	GlobalHelper.SpawnBloodSplatter(global_position + (10 * attackDirection), attackDirection.angle())

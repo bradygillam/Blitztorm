@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://bs332atkft1o1" path="res://Scripts/Units/States/SceneStates/EnemyTarget.tscn" id="7_rlrfy"]
 [ext_resource type="PackedScene" uid="uid://b16tb34md4r4h" path="res://Scripts/Units/States/SceneStates/EnemyDead.tscn" id="8_lyikq"]
 [ext_resource type="PackedScene" uid="uid://t5yrl2gf2v31" path="res://Scripts/Units/States/SceneStates/EnemyAttack.tscn" id="9_x0040"]
+[ext_resource type="PackedScene" uid="uid://becetpxdlrbvy" path="res://Scripts/Units/States/SceneStates/EnemyRotateToTarget.tscn" id="10_8qkvg"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_x0040"]
 radius = 8.0
@@ -38,6 +39,16 @@ position = Vector2(-1, -2)
 color = Color(0, 0, 0, 1)
 polygon = PackedVector2Array(8, 2, 3, 5, 3, -1)
 
+[node name="MuzzleFlash" type="Polygon2D" parent="." unique_id=183309798]
+visible = false
+position = Vector2(13, 3)
+scale = Vector2(1, 1.0416667)
+color = Color(1, 1, 0, 1)
+polygon = PackedVector2Array(-5, 0, 0, 0.96000004, 0, -0.96000004)
+
+[node name="Timer" type="Timer" parent="MuzzleFlash" unique_id=299408251]
+wait_time = 0.2
+
 [node name="StateMachine" parent="." unique_id=1871748933 node_paths=PackedStringArray("initialState") instance=ExtResource("2_bneef")]
 initialState = NodePath("EnemySpawn")
 
@@ -62,5 +73,10 @@ enemy = NodePath("../..")
 navAgent = NodePath("../../NavigationAgent2D")
 characterAgent = NodePath("../..")
 
-[node name="EnemyAttack" parent="StateMachine" unique_id=160666363 node_paths=PackedStringArray("enemy") instance=ExtResource("9_x0040")]
+[node name="EnemyAttack" parent="StateMachine" unique_id=160666363 node_paths=PackedStringArray("enemy", "muzzleFlashTimer", "muzzleFlashSprite") instance=ExtResource("9_x0040")]
+enemy = NodePath("../..")
+muzzleFlashTimer = NodePath("../../MuzzleFlash/Timer")
+muzzleFlashSprite = NodePath("../../MuzzleFlash")
+
+[node name="EnemyRotateToTarget" parent="StateMachine" unique_id=479818656 node_paths=PackedStringArray("enemy") instance=ExtResource("10_8qkvg")]
 enemy = NodePath("../..")

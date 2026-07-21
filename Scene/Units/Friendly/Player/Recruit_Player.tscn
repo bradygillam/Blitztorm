@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://bq6khx6a5tmax" path="res://Scripts/Units/States/SceneStates/FriendlyTarget.tscn" id="7_eovvh"]
 [ext_resource type="PackedScene" uid="uid://ctqpj53f1n30q" path="res://Scripts/Units/States/SceneStates/FriendlyDead.tscn" id="8_n07gt"]
 [ext_resource type="PackedScene" uid="uid://bkr5omlt0llw5" path="res://Scripts/Units/States/SceneStates/FriendlyAttack.tscn" id="9_2q50q"]
+[ext_resource type="PackedScene" uid="uid://d08e0x5wsr5mf" path="res://Scripts/Units/States/SceneStates/FriendlyRotateToTarget.tscn" id="10_glq4g"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_2q50q"]
 radius = 8.0
@@ -49,6 +50,16 @@ position = Vector2(-1, -2)
 color = Color(0, 0, 0, 1)
 polygon = PackedVector2Array(8, 2, 3, 5, 3, -1)
 
+[node name="MuzzleFlash" type="Polygon2D" parent="." unique_id=1895837467]
+visible = false
+position = Vector2(13, 3)
+scale = Vector2(1, 1.0416667)
+color = Color(1, 1, 0, 1)
+polygon = PackedVector2Array(-5, 0, 0, 0.96000004, 0, -0.96000004)
+
+[node name="Timer" type="Timer" parent="MuzzleFlash" unique_id=600591441]
+wait_time = 0.2
+
 [node name="StateMachine" parent="." unique_id=1871748933 node_paths=PackedStringArray("initialState") instance=ExtResource("2_kllnb")]
 initialState = NodePath("FriendlySpawn")
 
@@ -73,7 +84,12 @@ friendly = NodePath("../..")
 navAgent = NodePath("../../NavigationAgent2D")
 characterAgent = NodePath("../..")
 
-[node name="FriendlyAttack" parent="StateMachine" unique_id=861644863 node_paths=PackedStringArray("friendly") instance=ExtResource("9_2q50q")]
+[node name="FriendlyAttack" parent="StateMachine" unique_id=861644863 node_paths=PackedStringArray("friendly", "muzzleFlashTimer", "muzzleFlashSprite") instance=ExtResource("9_2q50q")]
+friendly = NodePath("../..")
+muzzleFlashTimer = NodePath("../../MuzzleFlash/Timer")
+muzzleFlashSprite = NodePath("../../MuzzleFlash")
+
+[node name="FriendlyRotateToTarget" parent="StateMachine" unique_id=1104784546 node_paths=PackedStringArray("friendly") instance=ExtResource("10_glq4g")]
 friendly = NodePath("../..")
 
 [connection signal="mouse_entered" from="." to="." method="DrawPawnInfoUI"]

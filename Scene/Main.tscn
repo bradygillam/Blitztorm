@@ -211,6 +211,8 @@ collision_mask = 6
 rotation = 1.5711155
 shape = SubResource("WorldBoundaryShape2D_sc4dx")
 
+[node name="BloodSplatters" type="Node2D" parent="Environment" unique_id=1906308837]
+
 [node name="Entities" type="Node2D" parent="." unique_id=1646741825]
 
 [node name="Enemy" type="Node2D" parent="Entities" unique_id=758674355]
@@ -238,7 +240,7 @@ ExtResource("8_6a8me"): ExtResource("6_h3nmf")
 })
 
 [node name="WaveTimer" type="Timer" parent="GameManager/WaveHandler" unique_id=1169303678]
-wait_time = 3.0
+wait_time = 10.0
 autostart = true
 
 [connection signal="button_up" from="UI/CanvasLayer/Control/SpawnButtons/Recruit" to="GameManager/PlayerUnitSpawnHandler" method="SpawnRecruit"]

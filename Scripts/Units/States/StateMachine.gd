@@ -37,6 +37,6 @@ func onStateTransition(state, newStateName) -> void:
 	if currentState:
 		currentState.Exit()
 	
-	newState.Enter()
-	
 	currentState = newState
+	
+	currentState.Enter()

@@ -1,11 +1,17 @@
 extends Node
-class_name GlobalHelper
 
 static var MIN_Y_POSITION_VALUE: float = 4
 static var MAX_Y_POSITION_VALUE: float = 796
 
 static var MIN_X_POSITION_VALUE: float = 8
 static var MAX_X_POSITION_VALUE: float = 1414
+
+static var bloodSplatterContainer: Node2D
+static var bloodSplatterPrefab: PackedScene = preload("res://Scene/Environment/Blood/BloodSplatter.tscn")
+
+func _ready() -> void:
+	await get_tree().process_frame
+	bloodSplatterContainer = get_tree().root.find_child("BloodSplatters", true, false)
 
 static func GetSpawnTargetVector(currentPosition: Vector2, isEnemySpawn: bool) -> Vector2:
 	if isEnemySpawn:
@@ -39,7 +45,7 @@ static func GetMovementRectangleVectors(currentPosition: Vector2, forwardScalar:
 static func GetObjectsOnLine(start: Vector2, end: Vector2, world: World2D) -> Array:
 	var direction: Vector2 = end - start
 	var length: float = direction.length()
-
+	
 	if length == 0:
 		return []
 		
@@ -63,3 +69,16 @@ static func GetObjectsOnLine(start: Vector2, end: Vector2, world: World2D) -> Ar
 		objectsInLine.append(hit.collider.get_parent())
 	
 	return objectsInLine
+
+
+static func SpawnBloodSplatter(position: Vector2, rotation: float) -> void:
+	var newSplatter: Node2D = bloodSplatterPrefab.instantiate()
+	
+	var offset: Vector2 = Vector2(
+		randf_range(-5.0, 5.0),
+		randf_range(-5.0, 5.0)
+	)
+	
+	newSplatter.global_position = position + offset
+	newSplatter.global_rotation = rotation + randf_range(-0.5, 0.5)
+	bloodSplatterContainer.add_child(newSplatter)

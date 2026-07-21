@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://d08e0x5wsr5mf"]
+
+[ext_resource type="Script" uid="uid://3yve76t2mhld" path="res://Scripts/Units/States/FriendlyRotateToTarget.gd" id="1_dty54"]
+
+[node name="FriendlyRotateToTarget" type="Node2D" unique_id=1685020935]
+script = ExtResource("1_dty54")

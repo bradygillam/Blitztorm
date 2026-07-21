@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://becetpxdlrbvy"]
+
+[ext_resource type="Script" uid="uid://c5uc81bslvvmb" path="res://Scripts/Units/States/EnemyRotateToTarget.gd" id="1_sa622"]
+
+[node name="EnemyRotateToTarget" type="Node2D" unique_id=1685020935]
+script = ExtResource("1_sa622")

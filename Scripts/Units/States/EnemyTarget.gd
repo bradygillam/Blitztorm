@@ -18,7 +18,7 @@ func Enter() -> void:
 	
 	targetTimer.start(enemy.unitData.Target_Time)
 
-func Update(delta: float) -> void:
+func PhysicsUpdate(delta: float) -> void:
 	HandleRotation(delta)
 
 func Exit() -> void:
@@ -27,7 +27,7 @@ func Exit() -> void:
 func CallSelectEnemy() -> void:
 	if enemy.stateMachine.currentState == self:
 		enemy.enemyTargets = SelectEnemy()
-		Transitioned.emit(self, "EnemyAttack")
+		Transitioned.emit(self, "EnemyRotateToTarget")
 
 func SelectEnemy() -> Array[FriendlyBaseUnit]:
 	if UnitHandler.playerUnits.size() == 0:

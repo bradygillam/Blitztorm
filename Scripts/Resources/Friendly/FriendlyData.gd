@@ -11,6 +11,7 @@ class_name FriendlyData
 @export var Accuracy_Attack: float
 @export var Damage_Low_Attack: float
 @export var Damage_High_Attack: float
+@export var Time_Between_Attacks: float
 
 @export_group("Time")
 @export var Idle_Time: float

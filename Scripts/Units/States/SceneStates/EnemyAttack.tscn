@@ -2,8 +2,11 @@
 
 [ext_resource type="Script" uid="uid://u604mr2lt6ce" path="res://Scripts/Units/States/EnemyAttack.gd" id="1_4lxpv"]
 
-[node name="EnemyAttack" type="Node2D" unique_id=1685020935 node_paths=PackedStringArray("attackTimer")]
+[node name="EnemyAttack" type="Node2D" unique_id=1685020935 node_paths=PackedStringArray("muzzleFlashTimer", "betweenAttacksTimer")]
 script = ExtResource("1_4lxpv")
-attackTimer = NodePath("Timer")
+muzzleFlashTimer = NodePath("MuzzleFlashTimer")
+betweenAttacksTimer = NodePath("BetweenAttacksTimer")
 
-[node name="Timer" type="Timer" parent="." unique_id=649568612]
+[node name="MuzzleFlashTimer" type="Timer" parent="." unique_id=448527548]
+
+[node name="BetweenAttacksTimer" type="Timer" parent="." unique_id=442185102]

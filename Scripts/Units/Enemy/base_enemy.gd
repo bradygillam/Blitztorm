@@ -22,3 +22,8 @@ func IsDead() -> bool:
 func TransitionDeadState() -> void:
 	stateMachine.onStateTransition(stateMachine.currentState, "EnemyDead")
 	base.color = deadColour
+
+func TakeHit(damage: float, attackDirection: Vector2) -> void:
+	attackDirection = attackDirection.normalized()
+	unitData.Health -= damage
+	GlobalHelper.SpawnBloodSplatter(global_position + (5 * attackDirection), attackDirection.angle())

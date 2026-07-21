@@ -15,9 +15,10 @@ func Enter() -> void:
 	friendly.enemyTargets = friendly.enemyTargets.filter(func(e):
 		return e != null and e.unitData.Health > 0
 	)
+	
 	targetTimer.start(friendly.unitData.Target_Time)
 
-func Update(delta: float) -> void:
+func PhysicsUpdate(delta: float) -> void:
 	HandleRotation(delta)
 
 func Exit() -> void:
@@ -25,9 +26,8 @@ func Exit() -> void:
 
 func CallSelectEnemy() -> void:
 	if friendly.stateMachine.currentState == self:
-		if friendly.enemyTargets.size() == 0:
-			friendly.enemyTargets = SelectEnemy()
-		Transitioned.emit(self, "FriendlyAttack")
+		friendly.enemyTargets = SelectEnemy()
+		Transitioned.emit(self, "FriendlyRotateToTarget")
 
 func SelectEnemy() -> Array[EnemyBaseUnit]:
 	if UnitHandler.enemyUnits.size() == 0:

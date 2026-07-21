@@ -12,6 +12,8 @@ var enemyCash: float = enemyStartingCash
 var waveLabel: Label
 var playerCashLabel: Label
 
+var muzzleFlashDuration: float = 0.15
+
 func _ready() -> void:
 	waveLabel = get_tree().root.find_child("WaveNumber", true, false)
 	playerCashLabel = get_tree().root.find_child("CashAmount", true, false)
