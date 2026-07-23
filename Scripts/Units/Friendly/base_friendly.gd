@@ -7,8 +7,11 @@ var playerInfoUI: UnitInfoUI
 
 var enemyTargets: Array[EnemyBaseUnit]
 
+var enemiesInRanges: Array
+
 func _ready() -> void:
 	super()
+	enemiesInRanges = []
 	unitData = unitData.duplicate()
 	UnitHandler.playerUnits.append(self)
 	base = find_child("Body", true)
@@ -38,3 +41,15 @@ func TakeHit(damage: float, attackDirection: Vector2) -> void:
 	attackDirection = attackDirection.normalized()
 	unitData.Health -= damage
 	GlobalHelper.SpawnBloodSplatter(global_position + (10 * attackDirection), attackDirection.angle())
+
+func AddEnemyToRange(body: Node2D, priority: int) -> void:
+	while enemiesInRanges.size() <= priority:
+		enemiesInRanges.append([])
+	
+	var enemy: EnemyBaseUnit = body
+	
+	enemiesInRanges[priority].append(enemy)
+
+func RemoveEnemyFromRange(body: Node2D, priority: int) -> void:
+	var enemy: EnemyBaseUnit = body
+	enemiesInRanges[priority].erase(enemy)

@@ -10,7 +10,7 @@ func _ready() -> void:
 	targetTimer.timeout.connect(CallSelectEnemy)
 
 func Enter() -> void:
-	faceTowardsVector = friendly.position + Vector2.LEFT
+	#faceTowardsVector = friendly.position + Vector2.LEFT
 	
 	friendly.enemyTargets = friendly.enemyTargets.filter(func(e):
 		return e != null and e.unitData.Health > 0
@@ -30,9 +30,11 @@ func CallSelectEnemy() -> void:
 		Transitioned.emit(self, "FriendlyRotateToTarget")
 
 func SelectEnemy() -> Array[EnemyBaseUnit]:
-	if UnitHandler.enemyUnits.size() == 0:
-		return []
-	return [UnitHandler.enemyUnits.pick_random()]
+	for enemiesInPriorityLevel in friendly.enemiesInRanges:
+		if enemiesInPriorityLevel.size() > 0:
+			return [enemiesInPriorityLevel.pick_random()]
+	
+	return []
 
 func HandleRotation(delta: float) -> void:
 	friendly.rotation = rotate_toward(friendly.rotation, (faceTowardsVector - friendly.global_position).angle(), friendly.unitData.Rotation_Speed * delta)

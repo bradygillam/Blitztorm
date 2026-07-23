@@ -30,9 +30,11 @@ func CallSelectEnemy() -> void:
 		Transitioned.emit(self, "EnemyRotateToTarget")
 
 func SelectEnemy() -> Array[FriendlyBaseUnit]:
-	if UnitHandler.playerUnits.size() == 0:
-		return []
-	return [UnitHandler.playerUnits.pick_random()]
+	for enemiesInPriorityLevel in enemy.enemiesInRanges:
+		if enemiesInPriorityLevel.size() > 0:
+			return [enemiesInPriorityLevel.pick_random()]
+	
+	return []
 
 func HandleRotation(delta: float) -> void:
 	enemy.rotation = rotate_toward(enemy.rotation, (faceTowardsVector - enemy.global_position).angle(), enemy.unitData.Rotation_Speed * delta)

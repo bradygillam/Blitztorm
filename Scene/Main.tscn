@@ -165,9 +165,9 @@ text = "Shots: xxx - xxx"
 [node name="Environment" type="Node2D" parent="." unique_id=1529469610]
 script = ExtResource("2_vm4ek")
 treePrefab = ExtResource("3_i0sg4")
-trees_max = 100
+trees_max = 10
 rockPrefab = ExtResource("4_mr7am")
-rocks_max = 50
+rocks_max = 5
 
 [node name="PlayableNavigationRegion2D" type="NavigationRegion2D" parent="Environment" unique_id=1276607224]
 navigation_polygon = SubResource("NavigationPolygon_i0sg4")

@@ -14,6 +14,12 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_x0040"]
 radius = 8.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_8qkvg"]
+radius = 157.25775
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_13miv"]
+radius = 385.04675
+
 [node name="Recruit_Enemy" type="CharacterBody2D" unique_id=903288569]
 z_index = 3
 collision_layer = 4
@@ -30,6 +36,24 @@ shape = SubResource("CircleShape2D_x0040")
 target_desired_distance = 1.0
 path_max_distance = 10.0
 avoidance_enabled = true
+
+[node name="TargetRanges" type="Node2D" parent="." unique_id=573718589]
+
+[node name="Area2D" type="Area2D" parent="TargetRanges" unique_id=1578923542]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TargetRanges/Area2D" unique_id=1303658499]
+shape = SubResource("CircleShape2D_8qkvg")
+debug_color = Color(0, 0.6, 0.69803923, 0.03137255)
+
+[node name="Area2D2" type="Area2D" parent="TargetRanges" unique_id=973259755]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TargetRanges/Area2D2" unique_id=1985585114]
+shape = SubResource("CircleShape2D_13miv")
+debug_color = Color(0, 0.6, 0.7019608, 0.03137255)
 
 [node name="Body" type="Polygon2D" parent="." unique_id=1561557993]
 polygon = PackedVector2Array(0, -8, 6, -6, 8, 0, 6, 6, 0, 8, -6, 6, -8, 0, -6, -6)
@@ -80,3 +104,8 @@ muzzleFlashSprite = NodePath("../../MuzzleFlash")
 
 [node name="EnemyRotateToTarget" parent="StateMachine" unique_id=479818656 node_paths=PackedStringArray("enemy") instance=ExtResource("10_8qkvg")]
 enemy = NodePath("../..")
+
+[connection signal="body_entered" from="TargetRanges/Area2D" to="." method="AddEnemyToRange" binds= [0]]
+[connection signal="body_exited" from="TargetRanges/Area2D" to="." method="RemoveEnemyFromRange" binds= [0]]
+[connection signal="body_entered" from="TargetRanges/Area2D2" to="." method="AddEnemyToRange" binds= [1]]
+[connection signal="body_exited" from="TargetRanges/Area2D2" to="." method="RemoveEnemyFromRange" binds= [1]]

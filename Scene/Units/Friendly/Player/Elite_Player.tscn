@@ -14,6 +14,15 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_wsmxo"]
 radius = 8.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_58obc"]
+radius = 157.25775
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dxp7v"]
+radius = 385.04675
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0irts"]
+radius = 806.00555
+
 [node name="Elite_Player" type="CharacterBody2D" unique_id=388823172]
 z_index = 3
 collision_layer = 2
@@ -39,6 +48,32 @@ target_desired_distance = 1.0
 path_max_distance = 10.0
 avoidance_enabled = true
 radius = 0.01
+
+[node name="TargetRanges" type="Node2D" parent="." unique_id=825395251]
+
+[node name="Area2D" type="Area2D" parent="TargetRanges" unique_id=937070407]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TargetRanges/Area2D" unique_id=603350440]
+shape = SubResource("CircleShape2D_58obc")
+debug_color = Color(0, 0.6, 0.7019608, 0.03137255)
+
+[node name="Aread2D2" type="Area2D" parent="TargetRanges" unique_id=1769675077]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TargetRanges/Aread2D2" unique_id=1941602116]
+shape = SubResource("CircleShape2D_dxp7v")
+debug_color = Color(0, 0.6, 0.7019608, 0.03137255)
+
+[node name="Aread2D3" type="Area2D" parent="TargetRanges" unique_id=1888557435]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TargetRanges/Aread2D3" unique_id=1938438675]
+shape = SubResource("CircleShape2D_0irts")
+debug_color = Color(0, 0.6, 0.7019608, 0.03137255)
 
 [node name="Body" type="Polygon2D" parent="." unique_id=1561557993]
 polygon = PackedVector2Array(0, -8, 6, -6, 8, 0, 6, 6, 0, 8, -6, 6, -8, 0, -6, -6)
@@ -92,3 +127,9 @@ friendly = NodePath("../..")
 
 [connection signal="mouse_entered" from="Area2D" to="." method="DrawPawnInfoUI"]
 [connection signal="mouse_exited" from="Area2D" to="." method="UnDrawPawnInfoUI"]
+[connection signal="body_entered" from="TargetRanges/Area2D" to="." method="AddEnemyToRange" binds= [0]]
+[connection signal="body_exited" from="TargetRanges/Area2D" to="." method="RemoveEnemyFromRange" binds= [0]]
+[connection signal="body_entered" from="TargetRanges/Aread2D2" to="." method="AddEnemyToRange" binds= [1]]
+[connection signal="body_exited" from="TargetRanges/Aread2D2" to="." method="RemoveEnemyFromRange" binds= [1]]
+[connection signal="body_entered" from="TargetRanges/Aread2D3" to="." method="AddEnemyToRange" binds= [2]]
+[connection signal="body_exited" from="TargetRanges/Aread2D3" to="." method="RemoveEnemyFromRange" binds= [2]]
