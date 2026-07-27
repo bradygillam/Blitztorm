@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="SpawnableEnvironmentalObjectData" format=3 uid="uid://c0wak0aynigru"]
+
+[ext_resource type="Script" uid="uid://r236itrcyhxr" path="res://Scripts/Resources/Environment/SpawnableEnvironmentObjectData.gd" id="1_ay3jx"]
+[ext_resource type="PackedScene" uid="uid://muxhtr74r64c" path="res://Scene/Environment/Spawnable/Sandbags_Preview.tscn" id="1_lqxc1"]
+
+[resource]
+script = ExtResource("1_ay3jx")
+Cost = 500
+Health = -1
+Preview = ExtResource("1_lqxc1")
+Name = "Sandbags"
+Size_min = 1.0
+Size_max = 1.0
+Cover_Effectiveness = 0.8
+Attackee_MaxDistanceForAnyEffectiveness = 100.0
+Attacker_MaxDistanceToZeroEffectiveness = 10.0
+Attacker_MaxDistanceToMaxEffectiveness = 50.0
+metadata/_custom_type_script = "uid://r236itrcyhxr"

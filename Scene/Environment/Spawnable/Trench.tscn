@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://dy7ea6kro14wo"]
+
+[ext_resource type="Script" uid="uid://bosy1twq3u4fa" path="res://Scripts/World/base_environmentalObject.gd" id="1_mk712"]
+[ext_resource type="Resource" uid="uid://cpixbhywnjj6n" path="res://Scripts/Resources/Environment/Trench.tres" id="2_mk712"]
+[ext_resource type="PackedScene" uid="uid://bwdc2461s2m1s" path="res://Scene/Utility/CoverAreaUtil.tscn" id="3_ck4qc"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n36pq"]
+size = Vector2(48, 128)
+
+[node name="Trench" type="Node2D" unique_id=181139215]
+script = ExtResource("1_mk712")
+objectData = ExtResource("2_mk712")
+
+[node name="Body" type="Polygon2D" parent="." unique_id=1862324443]
+color = Color(0.4119682, 0.22459292, 0.0042654434, 1)
+polygon = PackedVector2Array(-24, -64, 24, -64, 24, 64, -24, 64)
+
+[node name="CoverArea2D" parent="." unique_id=1546345715 node_paths=PackedStringArray("parent") instance=ExtResource("3_ck4qc")]
+parent = NodePath("..")
+
+[node name="CollisionShape2D" parent="CoverArea2D" index="0" unique_id=692663631]
+shape = SubResource("RectangleShape2D_n36pq")
+
+[editable path="CoverArea2D"]

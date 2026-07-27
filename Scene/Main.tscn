@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://cu278xyd0bk2h" path="res://Scene/Units/Enemy/Elite_Enemy.tscn" id="6_h3nmf"]
 [ext_resource type="Resource" uid="uid://dqkrijtouonkl" path="res://Scripts/Resources/Enemy/Recruit_Enemy.tres" id="6_hueuk"]
 [ext_resource type="Resource" uid="uid://dadnfy4b35x84" path="res://Scripts/Resources/Enemy/Elite_Enemy.tres" id="8_6a8me"]
+[ext_resource type="Script" uid="uid://no6su0j110m0" path="res://Scripts/Utility/PlayerEquipmentSpawnHandler.gd" id="8_sc4dx"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_i0sg4"]
 vertices = PackedVector2Array(1419.0078, 798, 2.0078125, 798, 2.9921875, 2, 1419.9922, 2)
@@ -55,8 +56,9 @@ mouse_filter = 2
 
 [node name="SpawnButtons" type="HBoxContainer" parent="UI/CanvasLayer/Control" unique_id=1084940545]
 layout_mode = 1
-offset_right = 164.0
+offset_right = 1422.0
 offset_bottom = 31.0
+mouse_filter = 2
 
 [node name="Recruit" type="Button" parent="UI/CanvasLayer/Control/SpawnButtons" unique_id=19406466]
 custom_minimum_size = Vector2(80, 0)
@@ -67,6 +69,22 @@ text = "Recruit"
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 text = "Elite"
+
+[node name="Control" type="Control" parent="UI/CanvasLayer/Control/SpawnButtons" unique_id=1239734295]
+custom_minimum_size = Vector2(1083, 0)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Sandbags" type="Button" parent="UI/CanvasLayer/Control/SpawnButtons" unique_id=475558524]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+text = "Sandbags"
+
+[node name="Trench" type="Button" parent="UI/CanvasLayer/Control/SpawnButtons" unique_id=927987509]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+text = "Trench
+"
 
 [node name="WaveInfo" type="HBoxContainer" parent="UI/CanvasLayer/Control" unique_id=1797865464]
 layout_mode = 1
@@ -215,6 +233,8 @@ shape = SubResource("WorldBoundaryShape2D_sc4dx")
 
 [node name="DebrisPiles" type="Node2D" parent="Environment" unique_id=772778881]
 
+[node name="Preview" type="Node2D" parent="Environment" unique_id=1311054482]
+
 [node name="Entities" type="Node2D" parent="." unique_id=1646741825]
 
 [node name="Enemy" type="Node2D" parent="Entities" unique_id=758674355]
@@ -231,6 +251,9 @@ script = ExtResource("2_g6ejq")
 [node name="PlayerUnitSpawnHandler" type="Node2D" parent="GameManager" unique_id=538984334]
 script = ExtResource("3_djkur")
 
+[node name="PlayerEquipmentSpawnHandler" type="Node2D" parent="GameManager" unique_id=1761833165]
+script = ExtResource("8_sc4dx")
+
 [node name="EnemyUnitSpawnHandler" type="Node2D" parent="GameManager" unique_id=1793196754]
 script = ExtResource("3_h175a")
 
@@ -242,9 +265,11 @@ ExtResource("8_6a8me"): ExtResource("6_h3nmf")
 })
 
 [node name="WaveTimer" type="Timer" parent="GameManager/WaveHandler" unique_id=1169303678]
-wait_time = 15.0
+wait_time = 10.0
 autostart = true
 
 [connection signal="button_up" from="UI/CanvasLayer/Control/SpawnButtons/Recruit" to="GameManager/PlayerUnitSpawnHandler" method="SpawnRecruit"]
 [connection signal="button_up" from="UI/CanvasLayer/Control/SpawnButtons/Elite" to="GameManager/PlayerUnitSpawnHandler" method="SpawnElite"]
+[connection signal="button_up" from="UI/CanvasLayer/Control/SpawnButtons/Sandbags" to="GameManager/PlayerEquipmentSpawnHandler" method="SpawnSandbags"]
+[connection signal="button_up" from="UI/CanvasLayer/Control/SpawnButtons/Trench" to="GameManager/PlayerEquipmentSpawnHandler" method="SpawnTrench"]
 [connection signal="timeout" from="GameManager/WaveHandler/WaveTimer" to="GameManager/WaveHandler" method="SpawnWave"]

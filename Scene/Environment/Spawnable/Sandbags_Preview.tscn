@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://muxhtr74r64c"]
+
+[node name="Sandbags_Preview" type="Node2D" unique_id=181139215]
+z_index = 10
+
+[node name="Body" type="Polygon2D" parent="." unique_id=1862324443]
+color = Color(0.7764706, 0.44313726, 0.019607844, 0.26666668)
+polygon = PackedVector2Array(-8, -48, 32, -48, 32, -35, 5, -35, 5, 35, 32, 35, 32, 48, -8, 48)

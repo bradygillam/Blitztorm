@@ -7,14 +7,14 @@ var bottomRightSpawnRectangleCorner: Vector2 = Vector2(1448, GlobalHelper.MAX_Y_
 func _ready() -> void:
 	parentContainer = get_tree().root.find_child("Player", true, false)
 
-func spawn_unit(scene: PackedScene) -> void:
-	var unit  = scene.instantiate()
+func spawnUnit(scene: PackedScene) -> void:
+	var unit = scene.instantiate()
 	
-	if GlobalData.playerCash < unit.unitData.Cost:
+	if GlobalData.playerCash < unit.GetObjectData().Cost:
 		unit.queue_free()
 		return
 	
-	GlobalData.DecreasePlayerCash(unit.unitData.Cost)
+	GlobalData.DecreasePlayerCash(unit.GetObjectData().Cost)
 	
 	unit.global_position = GlobalHelper.GetRandomVectorInRectangle(
 		lopLeftSpawnRectangleCorner,
@@ -23,7 +23,7 @@ func spawn_unit(scene: PackedScene) -> void:
 	parentContainer.add_child(unit)
 
 func SpawnRecruit() -> void:
-	spawn_unit(load("res://Scene/Units/Friendly/Player/Recruit_Player.tscn"))
+	spawnUnit(load("res://Scene/Units/Friendly/Player/Recruit_Player.tscn"))
 
 func SpawnElite() -> void:
-	spawn_unit(load("res://Scene/Units/Friendly/Player/Elite_Player.tscn"))
+	spawnUnit(load("res://Scene/Units/Friendly/Player/Elite_Player.tscn"))

@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://bu01tb5nr0naf"]
+
+[ext_resource type="Script" uid="uid://bosy1twq3u4fa" path="res://Scripts/World/base_environmentalObject.gd" id="1_gsw42"]
+[ext_resource type="Resource" uid="uid://c0wak0aynigru" path="res://Scripts/Resources/Environment/Sandbags.tres" id="2_n36pq"]
+[ext_resource type="PackedScene" uid="uid://bwdc2461s2m1s" path="res://Scene/Utility/CoverAreaUtil.tscn" id="2_w2ij1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n36pq"]
+size = Vector2(40, 96)
+
+[node name="Sandbags" type="Node2D" unique_id=181139215]
+script = ExtResource("1_gsw42")
+objectData = ExtResource("2_n36pq")
+
+[node name="Body" type="Polygon2D" parent="." unique_id=1862324443]
+color = Color(0.7764706, 0.44313726, 0.019607844, 1)
+polygon = PackedVector2Array(-8, -48, 32, -48, 32, -35, 5, -35, 5, 35, 32, 35, 32, 48, -8, 48)
+
+[node name="CoverArea2D" parent="." unique_id=1546345715 node_paths=PackedStringArray("parent") instance=ExtResource("2_w2ij1")]
+parent = NodePath("..")
+
+[node name="CollisionShape2D" parent="CoverArea2D" index="0" unique_id=692663631]
+position = Vector2(12, 0)
+shape = SubResource("RectangleShape2D_n36pq")
+
+[editable path="CoverArea2D"]

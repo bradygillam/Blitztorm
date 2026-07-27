@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="SpawnableEnvironmentalObjectData" format=3 uid="uid://cpixbhywnjj6n"]
+
+[ext_resource type="PackedScene" uid="uid://4sg2ca5l47as" path="res://Scene/Environment/Spawnable/Trench_Preview.tscn" id="1_l7yuf"]
+[ext_resource type="Script" uid="uid://r236itrcyhxr" path="res://Scripts/Resources/Environment/SpawnableEnvironmentObjectData.gd" id="2_ltpbg"]
+
+[resource]
+script = ExtResource("2_ltpbg")
+Cost = 1000
+Health = -1
+Preview = ExtResource("1_l7yuf")
+Name = "Trench"
+Size_min = 1.0
+Size_max = 1.0
+Cover_Effectiveness = 0.8
+Attackee_MaxDistanceForAnyEffectiveness = 40.0
+Attacker_MaxDistanceToZeroEffectiveness = 10.0
+Attacker_MaxDistanceToMaxEffectiveness = 50.0
+metadata/_custom_type_script = "uid://r236itrcyhxr"

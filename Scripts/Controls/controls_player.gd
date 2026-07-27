@@ -1,4 +1,11 @@
 extends Node
+class_name PlayerControls
+
+enum ControlState {
+	NORMAL,
+	PLACING_EQUIPMENT
+}
+var controlsState: ControlState
 
 var selectionSquare: ColorRect
 var selectionSquareColour: Color = Color.DEEP_SKY_BLUE
@@ -19,7 +26,15 @@ var placementLineStartVector: Vector2
 
 var selectedUnits: Array[PlayerBaseUnit]
 
+var equipmentSpawnHandler: EquipmentSpawnHandler
+var equipmentPreviewContainer: Node2D
+var equipmentPreview: Node2D
+var previewRotationSpeed: float = 0.01
+
 func _ready() -> void:
+	equipmentSpawnHandler = get_tree().root.find_child("PlayerEquipmentSpawnHandler", true, false)
+	equipmentPreviewContainer = get_tree().root.find_child("Preview", true, false)
+	EnterNormalState()
 	selectionSquare = ColorRect.new()
 	selectionSquare.color = selectionSquareColour
 	selectionSquare.z_index = selectionSquareZIndex
@@ -38,9 +53,14 @@ func _ready() -> void:
 
 
 func _process(_delta: float) -> void:
-	HandleUnitSelection()
-	HandleUnitPlacement()
-
+	match controlsState:
+		ControlState.NORMAL:
+			HandleUnitSelection()
+			HandleUnitPlacement()
+		ControlState.PLACING_EQUIPMENT:
+			HandleUpdatePreviewPosition()
+			HandleEquipmentPlacement()
+			HandleDeselectCheck()
 
 func HandleUnitSelection() -> void:
 	if Input.is_action_just_pressed("Unit_Selection"):
@@ -78,6 +98,25 @@ func HandleUnitPlacement() -> void:
 		selectedUnits = []
 		placementLine.visible = false
 		placementLine.clear_points()
+
+func HandleUpdatePreviewPosition() -> void:
+	equipmentPreview.global_position = get_viewport().get_mouse_position()
+	if Input.is_action_pressed("Equipment_RotateClockwise"):
+		equipmentPreview.rotation += previewRotationSpeed
+	if Input.is_action_pressed("Equipment_RotateCounterClockwise"):
+		equipmentPreview.rotation -= previewRotationSpeed
+
+func HandleEquipmentPlacement() -> void:
+	if Input.is_action_just_released("Equipment_Place"):
+		if get_viewport().gui_get_hovered_control() != null:
+			var controlNode = get_viewport().gui_get_hovered_control()
+			if controlNode.mouse_filter == Control.MOUSE_FILTER_STOP:
+				return
+		equipmentSpawnHandler.SpawnEquipmentAtPosition(get_viewport().get_mouse_position(), equipmentPreview.rotation)
+
+func HandleDeselectCheck() -> void:
+	if Input.is_action_just_released("Equipment_Deselect"):
+		EnterNormalState()
 
 
 func GetAllPlayerUnitsInSelection(topLeftCornerIn: Vector2, bottomRightCornerIn: Vector2) -> Array[PlayerBaseUnit]:
@@ -142,10 +181,19 @@ func GetEquidistantPointsOnLine(numPointsNeeded: int, lineStart: Vector2, lineEn
 	
 	return destinationVectors
 
-
 func AssignPoints(listOfPoints: Array[Vector2]) -> void:
 	if selectedUnits.size() != listOfPoints.size():
 		printerr("Non-equal number of selected units: " + str(selectedUnits.size()) + " and assignable points: " + str(listOfPoints.size()))
 	
 	for i in range(selectedUnits.size()):
 		selectedUnits[i].AssignDestination(listOfPoints[i])
+
+func EnterPlacingState(preview: PackedScene) -> void:
+	controlsState = ControlState.PLACING_EQUIPMENT
+	equipmentPreview = preview.instantiate()
+	equipmentPreviewContainer.add_child(equipmentPreview)
+
+func EnterNormalState() -> void:
+	controlsState = ControlState.NORMAL
+	if equipmentPreview:
+		equipmentPreview.queue_free()

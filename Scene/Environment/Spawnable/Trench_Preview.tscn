@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://4sg2ca5l47as"]
+
+[node name="Trench_Preview" type="Node2D" unique_id=181139215]
+z_index = 10
+
+[node name="Body" type="Polygon2D" parent="." unique_id=1862324443]
+color = Color(0.4117647, 0.22352941, 0.003921569, 0.26666668)
+polygon = PackedVector2Array(-24, -64, 24, -64, 24, 64, -24, 64)
