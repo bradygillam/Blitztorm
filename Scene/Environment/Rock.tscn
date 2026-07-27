@@ -2,17 +2,27 @@
 
 [ext_resource type="Script" uid="uid://bosy1twq3u4fa" path="res://Scripts/World/base_environmentalObject.gd" id="1_jbyxe"]
 [ext_resource type="Resource" uid="uid://bkx8mg3tjptje" path="res://Scripts/Resources/Environment/Rock.tres" id="2_fvaf6"]
+[ext_resource type="PackedScene" uid="uid://bwdc2461s2m1s" path="res://Scene/Utility/CoverAreaUtil.tscn" id="3_fvaf6"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_2q50q"]
 radius = 5.0
 
-[node name="Rock" type="StaticBody2D" unique_id=1902183836]
+[node name="Rock" type="Node2D" unique_id=496804417]
 script = ExtResource("1_jbyxe")
 objectData = ExtResource("2_fvaf6")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1887242926]
-shape = SubResource("CircleShape2D_2q50q")
 
 [node name="Body" type="Polygon2D" parent="." unique_id=1561557993]
 color = Color(0.3887896, 0.3887896, 0.38878956, 1)
 polygon = PackedVector2Array(0, -8, 6, -6, 8, 0, 6, 6, 0, 8, -6, 6, -8, 0, -6, -6)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=93502118]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=153326018]
+shape = SubResource("CircleShape2D_2q50q")
+
+[node name="CoverArea2D" parent="." unique_id=1546345715 node_paths=PackedStringArray("parent") instance=ExtResource("3_fvaf6")]
+parent = NodePath("..")
+
+[editable path="CoverArea2D"]

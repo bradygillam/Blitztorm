@@ -9,3 +9,6 @@ func _ready() -> void:
 
 func TakeHit(damage: float, attackDirection: Vector2) -> void:
 	pass
+
+func GetObjectData():
+	return objectData

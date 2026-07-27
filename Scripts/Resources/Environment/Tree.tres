@@ -7,4 +7,7 @@ script = ExtResource("1_k42kd")
 Name = "Tree"
 Size_min = 1.0
 Size_max = 2.5
+Cover_Effectiveness = 0.1
+Attackee_MaxDistanceForMaxEffectiveness = 2000.0
+Attackee_MaxDistanceForAnyEffectiveness = 2001.0
 metadata/_custom_type_script = "uid://bpjtwurj2ym48"

@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://bad5qptc3k7rr" path="res://Scripts/Units/States/SceneStates/StateMachine.tscn" id="2_kllnb"]
 [ext_resource type="Resource" uid="uid://dsykms2mw8gqd" path="res://Scripts/Resources/Friendly/Recruit_Friendly.tres" id="2_xujll"]
 [ext_resource type="PackedScene" uid="uid://d368ru3ogrpjs" path="res://Scripts/Units/States/SceneStates/FriendlySpawn.tscn" id="3_ixdq2"]
+[ext_resource type="PackedScene" uid="uid://bwdc2461s2m1s" path="res://Scene/Utility/CoverAreaUtil.tscn" id="3_j2emq"]
 [ext_resource type="PackedScene" uid="uid://bh5sifxqncotb" path="res://Scripts/Units/States/SceneStates/FriendlyIdle.tscn" id="4_ixdq2"]
 [ext_resource type="PackedScene" uid="uid://ri6bu8dcuhqu" path="res://Scripts/Units/States/SceneStates/FriendlyMove.tscn" id="5_tykt2"]
 [ext_resource type="PackedScene" uid="uid://bq6khx6a5tmax" path="res://Scripts/Units/States/SceneStates/FriendlyTarget.tscn" id="7_eovvh"]
@@ -13,6 +14,9 @@
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_2q50q"]
 radius = 8.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mnfy3"]
+radius = 7.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_glq4g"]
 radius = 8.0
@@ -25,8 +29,8 @@ radius = 385.04675
 
 [node name="Recruit_Player" type="CharacterBody2D" unique_id=279290355]
 z_index = 3
-collision_layer = 2
-collision_mask = 7
+collision_layer = 48
+collision_mask = 118
 input_pickable = true
 script = ExtResource("1_lpnoi")
 selectedColour = Color(1, 1, 0, 1)
@@ -34,25 +38,31 @@ unitData = ExtResource("2_xujll")
 baseColour = Color(0, 0.7058824, 0.9843137, 1)
 deadColour = Color(0, 0, 0.05882353, 1)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=255838181]
-shape = SubResource("CircleShape2D_2q50q")
-
-[node name="Area2D" type="Area2D" parent="." unique_id=1527482179]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1354171898]
-shape = SubResource("CircleShape2D_glq4g")
-
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=812186616]
 target_desired_distance = 1.0
 path_max_distance = 10.0
 avoidance_enabled = true
 radius = 0.01
 
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=255838181]
+shape = SubResource("CircleShape2D_2q50q")
+
+[node name="CoverArea2D" parent="." unique_id=1546345715 node_paths=PackedStringArray("parent") instance=ExtResource("3_j2emq")]
+parent = NodePath("..")
+
+[node name="CollisionShape2D" parent="CoverArea2D" index="0" unique_id=692663631]
+shape = SubResource("CircleShape2D_mnfy3")
+
+[node name="UI" type="Area2D" parent="." unique_id=1527482179]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="UI" unique_id=1354171898]
+shape = SubResource("CircleShape2D_glq4g")
+
 [node name="TargetRanges" type="Node2D" parent="." unique_id=1453540820]
 
 [node name="Area2D" type="Area2D" parent="TargetRanges" unique_id=1271945879]
 collision_layer = 0
-collision_mask = 4
+collision_mask = 64
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TargetRanges/Area2D" unique_id=843819376]
 shape = SubResource("CircleShape2D_j2emq")
@@ -60,7 +70,7 @@ debug_color = Color(0, 0.6, 0.69803923, 0.03137255)
 
 [node name="Area2D2" type="Area2D" parent="TargetRanges" unique_id=1206579429]
 collision_layer = 0
-collision_mask = 4
+collision_mask = 64
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TargetRanges/Area2D2" unique_id=1100173997]
 shape = SubResource("CircleShape2D_rnqcd")
@@ -118,9 +128,11 @@ friendly = NodePath("../..")
 
 [connection signal="mouse_entered" from="." to="." method="DrawPawnInfoUI"]
 [connection signal="mouse_exited" from="." to="." method="UnDrawPawnInfoUI"]
-[connection signal="mouse_entered" from="Area2D" to="." method="DrawPawnInfoUI"]
-[connection signal="mouse_exited" from="Area2D" to="." method="UnDrawPawnInfoUI"]
+[connection signal="mouse_entered" from="UI" to="." method="DrawPawnInfoUI"]
+[connection signal="mouse_exited" from="UI" to="." method="UnDrawPawnInfoUI"]
 [connection signal="body_entered" from="TargetRanges/Area2D" to="." method="AddEnemyToRange" binds= [0]]
 [connection signal="body_exited" from="TargetRanges/Area2D" to="." method="RemoveEnemyFromRange" binds= [0]]
 [connection signal="body_entered" from="TargetRanges/Area2D2" to="." method="AddEnemyToRange" binds= [1]]
 [connection signal="body_exited" from="TargetRanges/Area2D2" to="." method="RemoveEnemyFromRange" binds= [1]]
+
+[editable path="CoverArea2D"]

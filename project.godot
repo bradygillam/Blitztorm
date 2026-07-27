@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 UnitHandler="*uid://dafmr7et14j2v"
 GlobalData="*uid://c7iga8b1165gx"
 GlobalHelper="*uid://ctr8c2wvkyfbk"
+GlobalConstants="*uid://b7l807boyqnlq"
 
 [display]
 
@@ -44,6 +45,17 @@ Unit_Placement={
 "events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":2,"position":Vector2(552, 11),"global_position":Vector2(561, 59),"factor":1.0,"button_index":2,"canceled":false,"pressed":true,"double_click":false,"script":null)
 ]
 }
+
+[layer_names]
+
+2d_physics/layer_1="World"
+2d_physics/layer_2="UnpassableCover"
+2d_physics/layer_3="UnpassableEmpty"
+2d_physics/layer_4="PassableCover"
+2d_physics/layer_5="PlayerUnits"
+2d_physics/layer_6="FriendlyUnits"
+2d_physics/layer_7="EnemyUnits"
+2d_physics/layer_32="Cover"
 
 [physics]
 

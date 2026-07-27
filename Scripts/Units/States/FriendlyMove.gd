@@ -12,14 +12,18 @@ func _ready() -> void:
 func Enter() -> void:
 	friendly.destination = NavigationServer2D.map_get_closest_point(navAgent.get_navigation_map(), friendly.destination)
 	navAgent.target_position = friendly.destination
-	characterAgent.set_collision_layer_value(2, false)
-	characterAgent.set_collision_mask_value(2, false)
+	characterAgent.set_collision_layer_value(5, false)
+	characterAgent.set_collision_mask_value(5, false)
+	characterAgent.set_collision_layer_value(6, false)
+	characterAgent.set_collision_mask_value(6, false)
 
 func Exit() -> void:
 	navAgent.velocity = Vector2.ZERO
 	characterAgent.velocity = Vector2.ZERO
-	characterAgent.set_collision_layer_value(2, true)
-	characterAgent.set_collision_mask_value(2, true)
+	characterAgent.set_collision_layer_value(5, true)
+	characterAgent.set_collision_mask_value(5, true)
+	characterAgent.set_collision_layer_value(6, true)
+	characterAgent.set_collision_mask_value(6, true)
 
 func PhysicsUpdate(delta: float) -> void:
 	if navAgent.is_navigation_finished() or !navAgent.is_target_reachable():

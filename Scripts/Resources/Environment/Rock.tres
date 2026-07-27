@@ -7,4 +7,7 @@ script = ExtResource("1_wa2xy")
 Name = "Rock"
 Size_min = 1.0
 Size_max = 3.0
+Cover_Effectiveness = 1.0
+Attackee_MaxDistanceForMaxEffectiveness = 2000.0
+Attackee_MaxDistanceForAnyEffectiveness = 2001.0
 metadata/_custom_type_script = "uid://bpjtwurj2ym48"

@@ -165,36 +165,39 @@ text = "Shots: xxx - xxx"
 [node name="Environment" type="Node2D" parent="." unique_id=1529469610]
 script = ExtResource("2_vm4ek")
 treePrefab = ExtResource("3_i0sg4")
-trees_max = 10
+trees_max = 100
 rockPrefab = ExtResource("4_mr7am")
-rocks_max = 5
+rocks_max = 10
 
 [node name="PlayableNavigationRegion2D" type="NavigationRegion2D" parent="Environment" unique_id=1276607224]
 navigation_polygon = SubResource("NavigationPolygon_i0sg4")
 navigation_layers = 3
 
+[node name="Elite_Enemy" parent="Environment/PlayableNavigationRegion2D" unique_id=1264052095 instance=ExtResource("6_h3nmf")]
+position = Vector2(93, 383)
+
 [node name="WorldBoundaries" type="Node2D" parent="Environment" unique_id=2143261413]
 
 [node name="Top" type="StaticBody2D" parent="Environment/WorldBoundaries" unique_id=700742169]
 position = Vector2(0, -6)
-collision_layer = 16
-collision_mask = 6
+collision_layer = 4
+collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/WorldBoundaries/Top" unique_id=240991896]
 shape = SubResource("WorldBoundaryShape2D_i0sg4")
 
 [node name="Bottom" type="StaticBody2D" parent="Environment/WorldBoundaries" unique_id=2014094609]
 position = Vector2(0, 806)
-collision_layer = 16
-collision_mask = 6
+collision_layer = 4
+collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/WorldBoundaries/Bottom" unique_id=1908860192]
 shape = SubResource("WorldBoundaryShape2D_mr7am")
 
 [node name="Left" type="StaticBody2D" parent="Environment/WorldBoundaries" unique_id=2007329110]
 position = Vector2(-2, 0)
-collision_layer = 16
-collision_mask = 6
+collision_layer = 4
+collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/WorldBoundaries/Left" unique_id=728349979]
 position = Vector2(-4, 0)
@@ -204,8 +207,8 @@ shape = SubResource("WorldBoundaryShape2D_sc4dx")
 [node name="Right" type="StaticBody2D" parent="Environment/WorldBoundaries" unique_id=1430125787]
 position = Vector2(1428, 0)
 rotation = 3.1415927
-collision_layer = 16
-collision_mask = 6
+collision_layer = 4
+collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/WorldBoundaries/Right" unique_id=1838561923]
 rotation = 1.5711155

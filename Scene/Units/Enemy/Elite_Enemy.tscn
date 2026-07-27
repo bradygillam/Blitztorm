@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://djnk4p36vo1d1" path="res://Scripts/Units/Enemy/base_enemy.gd" id="1_knkwd"]
 [ext_resource type="Resource" uid="uid://dadnfy4b35x84" path="res://Scripts/Resources/Enemy/Elite_Enemy.tres" id="2_6bry5"]
+[ext_resource type="PackedScene" uid="uid://bwdc2461s2m1s" path="res://Scene/Utility/CoverAreaUtil.tscn" id="3_qr0si"]
 [ext_resource type="PackedScene" uid="uid://bad5qptc3k7rr" path="res://Scripts/Units/States/SceneStates/StateMachine.tscn" id="4_2xl1m"]
 [ext_resource type="PackedScene" uid="uid://dwwhmnsyadbw0" path="res://Scripts/Units/States/SceneStates/EnemySpawn.tscn" id="5_qr0si"]
 [ext_resource type="PackedScene" uid="uid://ihyeuw7f0t7w" path="res://Scripts/Units/States/SceneStates/EnemyMove.tscn" id="6_gpfs1"]
@@ -25,26 +26,29 @@ radius = 806.00555
 
 [node name="Elite_Enemy" type="CharacterBody2D" unique_id=1264052095]
 z_index = 3
-collision_layer = 4
-collision_mask = 7
+collision_layer = 64
+collision_mask = 118
 script = ExtResource("1_knkwd")
 unitData = ExtResource("2_6bry5")
 baseColour = Color(0.24313726, 0, 0, 1)
 deadColour = Color(0.05882353, 0, 0, 1)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=543047442]
-shape = SubResource("CircleShape2D_r1ya2")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=318202379]
 target_desired_distance = 1.0
 path_max_distance = 10.0
 avoidance_enabled = true
 
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=543047442]
+shape = SubResource("CircleShape2D_r1ya2")
+
+[node name="CoverArea2D" parent="." unique_id=1546345715 node_paths=PackedStringArray("parent") instance=ExtResource("3_qr0si")]
+parent = NodePath("..")
+
 [node name="TargetRanges" type="Node2D" parent="." unique_id=666489655]
 
 [node name="Area2D" type="Area2D" parent="TargetRanges" unique_id=1111325945]
 collision_layer = 0
-collision_mask = 2
+collision_mask = 48
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TargetRanges/Area2D" unique_id=475653010]
 shape = SubResource("CircleShape2D_2xl1m")
@@ -52,7 +56,7 @@ debug_color = Color(0, 0.6, 0.7019608, 0.03137255)
 
 [node name="Aread2D2" type="Area2D" parent="TargetRanges" unique_id=1375330993]
 collision_layer = 0
-collision_mask = 2
+collision_mask = 48
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TargetRanges/Aread2D2" unique_id=1859864807]
 shape = SubResource("CircleShape2D_qr0si")
@@ -60,7 +64,7 @@ debug_color = Color(0, 0.6, 0.7019608, 0.03137255)
 
 [node name="Aread2D3" type="Area2D" parent="TargetRanges" unique_id=715058124]
 collision_layer = 0
-collision_mask = 2
+collision_mask = 48
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TargetRanges/Aread2D3" unique_id=639289238]
 shape = SubResource("CircleShape2D_gpfs1")
@@ -122,3 +126,5 @@ enemy = NodePath("../..")
 [connection signal="body_exited" from="TargetRanges/Aread2D2" to="." method="RemoveEnemyFromRange" binds= [1]]
 [connection signal="body_entered" from="TargetRanges/Aread2D3" to="." method="AddEnemyToRange" binds= [2]]
 [connection signal="body_exited" from="TargetRanges/Aread2D3" to="." method="RemoveEnemyFromRange" binds= [2]]
+
+[editable path="CoverArea2D"]

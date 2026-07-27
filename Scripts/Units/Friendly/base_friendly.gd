@@ -38,6 +38,8 @@ func UnDrawPawnInfoUI() -> void:
 	playerInfoUI.UnDrawPawnInfoUI()
 
 func TakeHit(damage: float, attackDirection: Vector2) -> void:
+	if damage <= 0:
+		return
 	attackDirection = attackDirection.normalized()
 	unitData.Health -= damage
 	GlobalHelper.SpawnBloodSplatter(global_position + (10 * attackDirection), attackDirection.angle())
@@ -53,3 +55,6 @@ func AddEnemyToRange(body: Node2D, priority: int) -> void:
 func RemoveEnemyFromRange(body: Node2D, priority: int) -> void:
 	var enemy: EnemyBaseUnit = body
 	enemiesInRanges[priority].erase(enemy)
+
+func GetObjectData():
+	return unitData

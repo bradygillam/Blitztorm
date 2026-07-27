@@ -60,13 +60,14 @@ static func GetObjectsOnLine(start: Vector2, end: Vector2, world: World2D) -> Ar
 	)
 	query.collide_with_areas = true
 	query.collide_with_bodies = false
+	query.collision_mask = GlobalConstants.LAYER_COVER
 	
 	var hits = world.direct_space_state.intersect_shape(query)
 	
 	var objectsInLine = []
 	
 	for hit in hits:
-		objectsInLine.append(hit.collider.get_parent())
+		objectsInLine.append(hit.collider.parent)
 	
 	return objectsInLine
 
@@ -82,3 +83,9 @@ static func SpawnBloodSplatter(position: Vector2, rotation: float) -> void:
 	newSplatter.global_position = position + offset
 	newSplatter.global_rotation = rotation + randf_range(-0.5, 0.5)
 	bloodSplatterContainer.add_child(newSplatter)
+
+#static func FindChanceToHit(baseChance: float, modifiers: Array) -> float:
+	#var modifiedChance: float = baseChance
+	#
+	#for mod in modifiers:
+		#
