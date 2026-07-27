@@ -14,7 +14,7 @@ func _ready() -> void:
 	base = find_child("Body", true)
 	base.color = baseColour
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if IsDead():
 		TransitionDeadState()
 
@@ -29,7 +29,7 @@ func TakeHit(damage: float, attackDirection: Vector2) -> void:
 	if damage <= 0:
 		return
 	attackDirection = attackDirection.normalized()
-	unitData.Health -= damage
+	unitData.Health -= int(damage)
 	GlobalHelper.SpawnBloodSplatter(global_position + (5 * attackDirection), attackDirection.angle())
 
 func AddEnemyToRange(body: Node2D, priority: int) -> void:

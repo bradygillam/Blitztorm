@@ -41,7 +41,7 @@ func TakeHit(damage: float, attackDirection: Vector2) -> void:
 	if damage <= 0:
 		return
 	attackDirection = attackDirection.normalized()
-	unitData.Health -= damage
+	unitData.Health -= int(damage)
 	GlobalHelper.SpawnBloodSplatter(global_position + (10 * attackDirection), attackDirection.angle())
 
 func AddEnemyToRange(body: Node2D, priority: int) -> void:

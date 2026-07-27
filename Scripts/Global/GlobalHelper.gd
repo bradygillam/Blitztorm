@@ -16,16 +16,16 @@ func _ready() -> void:
 	bloodSplatterContainer = get_tree().root.find_child("BloodSplatters", true, false)
 	debrisContainer = get_tree().root.find_child("DebrisPiles", true, false)
 
-static func GetSpawnTargetVector(currentPosition: Vector2, isEnemySpawn: bool) -> Vector2:
+func GetSpawnTargetVector(currentPosition: Vector2, isEnemySpawn: bool) -> Vector2:
 	if isEnemySpawn:
 		return Vector2(MIN_X_POSITION_VALUE, currentPosition.y)
 	else:
 		return Vector2(MAX_X_POSITION_VALUE, currentPosition.y) 
 
-static func GetRandomVectorInRectangle(topLeft: Vector2, bottomRight: Vector2) -> Vector2:
+func GetRandomVectorInRectangle(topLeft: Vector2, bottomRight: Vector2) -> Vector2:
 	return Vector2(randf_range(topLeft.x, bottomRight.x), randf_range(topLeft.y, bottomRight.y))
 
-static func GetMovementRectangleVectors(currentPosition: Vector2, forwardScalar: float, horizontalVariabilityScalar: float, verticalVariabilityScalar: float) -> Array[Vector2]:
+func GetMovementRectangleVectors(currentPosition: Vector2, forwardScalar: float, horizontalVariabilityScalar: float, verticalVariabilityScalar: float) -> Array[Vector2]:
 	var centerRectangle: Vector2 = currentPosition + (forwardScalar * Vector2.RIGHT)
 	var topLeftRectangle: Vector2 = centerRectangle + (horizontalVariabilityScalar * Vector2.LEFT) + (verticalVariabilityScalar * Vector2.UP)
 	var bottomRightRectangle: Vector2 = centerRectangle + (horizontalVariabilityScalar * Vector2.RIGHT) + (verticalVariabilityScalar * Vector2.DOWN)
@@ -45,7 +45,7 @@ static func GetMovementRectangleVectors(currentPosition: Vector2, forwardScalar:
 	return [topLeftRectangle, bottomRightRectangle]
 
 
-static func GetObjectsOnLine(start: Vector2, end: Vector2, world: World2D) -> Array:
+func GetObjectsOnLine(start: Vector2, end: Vector2, world: World2D) -> Array:
 	var direction: Vector2 = end - start
 	var length: float = direction.length()
 	
@@ -74,7 +74,7 @@ static func GetObjectsOnLine(start: Vector2, end: Vector2, world: World2D) -> Ar
 	
 	return objectsInLine
 
-static func GetModifiedChanceToHit(baseChanceToHit: float, attacker: Node2D, attackee: Node2D, objectsInWay) -> float:
+func GetModifiedChanceToHit(baseChanceToHit: float, attacker: Node2D, attackee: Node2D, objectsInWay) -> float:
 	var modifiedChanceToHit = baseChanceToHit
 	for item: Node2D in objectsInWay:
 			modifiedChanceToHit *= (1 - item.GetObjectData().GetModifiedCoverEffectiveness(
@@ -83,7 +83,7 @@ static func GetModifiedChanceToHit(baseChanceToHit: float, attacker: Node2D, att
 			))
 	return modifiedChanceToHit
 
-static func ResolveShot(attacker: Node2D, attackee: Node2D, objectsInWay) -> Node2D:
+func ResolveShot(attacker: Node2D, attackee: Node2D, objectsInWay) -> Node2D:
 	var objectsProbabilities = []
 	var modifiedChanceToHit = attacker.GetObjectData().Accuracy_Attack
 	for item in objectsInWay:
@@ -111,7 +111,7 @@ static func ResolveShot(attacker: Node2D, attackee: Node2D, objectsInWay) -> Nod
 	
 	return null
 
-static func SpawnBloodSplatter(position: Vector2, rotation: float) -> void:
+func SpawnBloodSplatter(position: Vector2, rotation: float) -> void:
 	var newSplatter: Node2D = bloodSplatterPrefab.instantiate()
 	
 	var offset: Vector2 = Vector2(
@@ -123,7 +123,7 @@ static func SpawnBloodSplatter(position: Vector2, rotation: float) -> void:
 	newSplatter.global_rotation = rotation + randf_range(-0.5, 0.5)
 	bloodSplatterContainer.add_child(newSplatter)
 
-static func SpawnDebris(position: Vector2, rotation: float) -> void:
+func SpawnDebris(position: Vector2, rotation: float) -> void:
 	var newDebrisPile: Node2D = debrisPrefab.instantiate()
 	
 	var offset: Vector2 = Vector2(
