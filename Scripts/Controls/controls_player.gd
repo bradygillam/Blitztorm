@@ -189,6 +189,8 @@ func AssignPoints(listOfPoints: Array[Vector2]) -> void:
 		selectedUnits[i].AssignDestination(listOfPoints[i])
 
 func EnterPlacingState(preview: PackedScene) -> void:
+	if equipmentPreview:
+		equipmentPreview.queue_free()
 	controlsState = ControlState.PLACING_EQUIPMENT
 	equipmentPreview = preview.instantiate()
 	equipmentPreviewContainer.add_child(equipmentPreview)
