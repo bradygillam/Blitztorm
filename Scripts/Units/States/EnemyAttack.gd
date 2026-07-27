@@ -21,9 +21,22 @@ func AttackEnemy() -> void:
 	for friendly: FriendlyBaseUnit in enemy.enemyTargets:
 		if friendly == null:
 			continue
+		
+		var objectsInWay = GlobalHelper.GetObjectsOnLine(enemy.position, friendly.position, get_world_2d())
+		objectsInWay.erase(friendly)
+		objectsInWay.erase(enemy)
+		
+		var modifiedAccuracy = GlobalHelper.GetModifiedChanceToHit(
+			enemy.unitData.Accuracy_Attack,
+			enemy,
+			friendly,
+			objectsInWay
+			)
+		
 		var numberOfAttacks: int = randi_range(enemy.unitData.Number_Low_Attack, enemy.unitData.Number_High_Attack)
+		
 		for i in range(0, numberOfAttacks):
-			if randf() <= enemy.unitData.Accuracy_Attack:
+			if randf() <= modifiedAccuracy:
 				friendly.TakeHit(
 					randf_range(enemy.unitData.Damage_Low_Attack, enemy.unitData.Damage_High_Attack),
 					friendly.global_position - global_position

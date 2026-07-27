@@ -26,20 +26,21 @@ func AttackEnemy() -> void:
 		objectsInWay.erase(enemy)
 		objectsInWay.erase(friendly)
 		
-		var modifiedAccuracy = friendly.unitData.Accuracy_Attack
-		
-		for item: Node2D in objectsInWay:
-			modifiedAccuracy *= (1 - item.GetObjectData().GetModifiedCoverEffectiveness(
-				item.global_position.distance_to(friendly.global_position),
-				item.global_position.distance_to(enemy.global_position)
-			))
+		var modifiedAccuracy = GlobalHelper.GetModifiedChanceToHit(
+			friendly.unitData.Accuracy_Attack,
+			friendly,
+			enemy,
+			objectsInWay
+			)
+			
 		var numberOfAttacks: int = randi_range(friendly.unitData.Number_Low_Attack, friendly.unitData.Number_High_Attack)
 		
 		for i in range(0, numberOfAttacks):
-			if randf() <= modifiedAccuracy:
-				enemy.TakeHit(
+			var objectHit = GlobalHelper.ResolveShot(friendly, enemy, objectsInWay)
+			if objectHit != null:
+				objectHit.TakeHit(
 					randf_range(friendly.unitData.Damage_Low_Attack, friendly.unitData.Damage_High_Attack),
-					enemy.global_position - global_position
+					objectHit.global_position - global_position
 				)
 			await AttackVisuals()
 			betweenAttacksTimer.start(friendly.unitData.Time_Between_Attacks)

@@ -32,9 +32,22 @@ func CallSelectEnemy() -> void:
 func SelectEnemy() -> Array[EnemyBaseUnit]:
 	for enemiesInPriorityLevel in friendly.enemiesInRanges:
 		if enemiesInPriorityLevel.size() > 0:
-			return [enemiesInPriorityLevel.pick_random()]
-	
+			var enemyWorkingList = enemiesInPriorityLevel.duplicate()
+			enemyWorkingList.shuffle()
+			for enemy in enemyWorkingList:
+				var objectsInWay = GlobalHelper.GetObjectsOnLine(friendly.position, enemy.position, get_world_2d())
+				objectsInWay.erase(enemy)
+				objectsInWay.erase(friendly)
+				var chanceToHit = GlobalHelper.GetModifiedChanceToHit(
+					friendly.unitData.Accuracy_Attack,
+					friendly,
+					enemy,
+					objectsInWay
+					)
+				if chanceToHit >= 0.0001:
+					return [enemy]
 	return []
+
 
 func HandleRotation(delta: float) -> void:
 	friendly.rotation = rotate_toward(friendly.rotation, (faceTowardsVector - friendly.global_position).angle(), friendly.unitData.Rotation_Speed * delta)

@@ -32,7 +32,20 @@ func CallSelectEnemy() -> void:
 func SelectEnemy() -> Array[FriendlyBaseUnit]:
 	for enemiesInPriorityLevel in enemy.enemiesInRanges:
 		if enemiesInPriorityLevel.size() > 0:
-			return [enemiesInPriorityLevel.pick_random()]
+			var targetWorkingList = enemiesInPriorityLevel.duplicate()
+			targetWorkingList.shuffle()
+			for target in targetWorkingList:
+				var objectsInWay = GlobalHelper.GetObjectsOnLine(enemy.position, target.position, get_world_2d())
+				objectsInWay.erase(target)
+				objectsInWay.erase(enemy)
+				var chanceToHit = GlobalHelper.GetModifiedChanceToHit(
+					enemy.unitData.Accuracy_Attack,
+					enemy,
+					target,
+					objectsInWay
+					)
+				if chanceToHit >= 0.0001:
+					return [target]
 	
 	return []
 

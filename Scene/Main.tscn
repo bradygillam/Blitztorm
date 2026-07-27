@@ -167,14 +167,11 @@ script = ExtResource("2_vm4ek")
 treePrefab = ExtResource("3_i0sg4")
 trees_max = 100
 rockPrefab = ExtResource("4_mr7am")
-rocks_max = 10
+rocks_max = 20
 
 [node name="PlayableNavigationRegion2D" type="NavigationRegion2D" parent="Environment" unique_id=1276607224]
 navigation_polygon = SubResource("NavigationPolygon_i0sg4")
 navigation_layers = 3
-
-[node name="Elite_Enemy" parent="Environment/PlayableNavigationRegion2D" unique_id=1264052095 instance=ExtResource("6_h3nmf")]
-position = Vector2(93, 383)
 
 [node name="WorldBoundaries" type="Node2D" parent="Environment" unique_id=2143261413]
 
@@ -216,6 +213,8 @@ shape = SubResource("WorldBoundaryShape2D_sc4dx")
 
 [node name="BloodSplatters" type="Node2D" parent="Environment" unique_id=1906308837]
 
+[node name="DebrisPiles" type="Node2D" parent="Environment" unique_id=772778881]
+
 [node name="Entities" type="Node2D" parent="." unique_id=1646741825]
 
 [node name="Enemy" type="Node2D" parent="Entities" unique_id=758674355]
@@ -243,7 +242,7 @@ ExtResource("8_6a8me"): ExtResource("6_h3nmf")
 })
 
 [node name="WaveTimer" type="Timer" parent="GameManager/WaveHandler" unique_id=1169303678]
-wait_time = 10.0
+wait_time = 15.0
 autostart = true
 
 [connection signal="button_up" from="UI/CanvasLayer/Control/SpawnButtons/Recruit" to="GameManager/PlayerUnitSpawnHandler" method="SpawnRecruit"]

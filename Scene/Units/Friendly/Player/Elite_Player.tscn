@@ -49,7 +49,6 @@ radius = 0.01
 shape = SubResource("CircleShape2D_wsmxo")
 
 [node name="CoverArea2D" parent="." unique_id=1546345715 node_paths=PackedStringArray("parent") instance=ExtResource("3_0irts")]
-visible = false
 parent = NodePath("..")
 
 [node name="CollisionShape2D" parent="CoverArea2D" index="0" unique_id=692663631]

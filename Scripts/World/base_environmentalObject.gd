@@ -8,7 +8,10 @@ func _ready() -> void:
 	scale *= objectData.Size
 
 func TakeHit(damage: float, attackDirection: Vector2) -> void:
-	pass
+	if damage <= 0:
+		return
+	attackDirection = attackDirection.normalized()
+	GlobalHelper.SpawnDebris(global_position + (10 * attackDirection), attackDirection.angle())
 
 func GetObjectData():
 	return objectData

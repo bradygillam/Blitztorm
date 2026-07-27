@@ -8,10 +8,13 @@ static var MAX_X_POSITION_VALUE: float = 1414
 
 static var bloodSplatterContainer: Node2D
 static var bloodSplatterPrefab: PackedScene = preload("res://Scene/Environment/Blood/BloodSplatter.tscn")
+static var debrisContainer: Node2D
+static var debrisPrefab: PackedScene = preload("res://Scene/Environment/Debris.tscn")
 
 func _ready() -> void:
 	await get_tree().process_frame
 	bloodSplatterContainer = get_tree().root.find_child("BloodSplatters", true, false)
+	debrisContainer = get_tree().root.find_child("DebrisPiles", true, false)
 
 static func GetSpawnTargetVector(currentPosition: Vector2, isEnemySpawn: bool) -> Vector2:
 	if isEnemySpawn:
@@ -71,6 +74,42 @@ static func GetObjectsOnLine(start: Vector2, end: Vector2, world: World2D) -> Ar
 	
 	return objectsInLine
 
+static func GetModifiedChanceToHit(baseChanceToHit: float, attacker: Node2D, attackee: Node2D, objectsInWay) -> float:
+	var modifiedChanceToHit = baseChanceToHit
+	for item: Node2D in objectsInWay:
+			modifiedChanceToHit *= (1 - item.GetObjectData().GetModifiedCoverEffectiveness(
+				item.global_position.distance_to(attacker.global_position),
+				item.global_position.distance_to(attackee.global_position)
+			))
+	return modifiedChanceToHit
+
+static func ResolveShot(attacker: Node2D, attackee: Node2D, objectsInWay) -> Node2D:
+	var objectsProbabilities = []
+	var modifiedChanceToHit = attacker.GetObjectData().Accuracy_Attack
+	for item in objectsInWay:
+		var itemCoverEffectiveness = item.GetObjectData().GetModifiedCoverEffectiveness(
+				item.global_position.distance_to(attacker.global_position),
+				item.global_position.distance_to(attackee.global_position)
+			)
+		var chanceToHitItem = modifiedChanceToHit * itemCoverEffectiveness
+		modifiedChanceToHit *= (1 - itemCoverEffectiveness)
+		
+		objectsProbabilities.append({
+			"Object" : item,
+			"Chance" : chanceToHitItem
+			})
+	
+	var randomRoll: float = randf()
+	if randomRoll <= modifiedChanceToHit:
+		return attackee
+	randomRoll -= modifiedChanceToHit
+	
+	for item in objectsProbabilities:
+		if randomRoll <= item.Chance:
+			return item.Object
+		randomRoll -= item.Chance
+	
+	return null
 
 static func SpawnBloodSplatter(position: Vector2, rotation: float) -> void:
 	var newSplatter: Node2D = bloodSplatterPrefab.instantiate()
@@ -84,8 +123,14 @@ static func SpawnBloodSplatter(position: Vector2, rotation: float) -> void:
 	newSplatter.global_rotation = rotation + randf_range(-0.5, 0.5)
 	bloodSplatterContainer.add_child(newSplatter)
 
-#static func FindChanceToHit(baseChance: float, modifiers: Array) -> float:
-	#var modifiedChance: float = baseChance
-	#
-	#for mod in modifiers:
-		#
+static func SpawnDebris(position: Vector2, rotation: float) -> void:
+	var newDebrisPile: Node2D = debrisPrefab.instantiate()
+	
+	var offset: Vector2 = Vector2(
+		randf_range(-5.0, 5.0),
+		randf_range(-5.0, 5.0)
+	)
+	
+	newDebrisPile.global_position = position + offset
+	newDebrisPile.global_rotation = rotation + randf_range(-0.5, 0.5)
+	debrisContainer.add_child(newDebrisPile)
