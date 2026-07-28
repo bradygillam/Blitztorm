@@ -13,5 +13,8 @@ func TakeHit(damage: float, attackDirection: Vector2) -> void:
 	attackDirection = attackDirection.normalized()
 	GlobalHelper.SpawnDebris(global_position + (10 * attackDirection), attackDirection.angle())
 
+func TakeExplosiveHit(damage: float, attackDirection: Vector2) -> void:
+	TakeHit(damage, attackDirection)
+
 func GetObjectData():
 	return objectData

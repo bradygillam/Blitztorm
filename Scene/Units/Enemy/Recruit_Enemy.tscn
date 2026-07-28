@@ -42,6 +42,7 @@ avoidance_enabled = true
 shape = SubResource("CircleShape2D_x0040")
 
 [node name="CoverArea2D" parent="." unique_id=1546345715 node_paths=PackedStringArray("parent") instance=ExtResource("3_13miv")]
+collision_layer = 3221225472
 parent = NodePath("..")
 
 [node name="CollisionShape2D" parent="CoverArea2D" index="0" unique_id=692663631]

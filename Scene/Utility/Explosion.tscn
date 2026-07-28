@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://b2c0uh0t21uq2"]
+
+[ext_resource type="Script" uid="uid://dpa3rkt4lotbg" path="res://Scripts/Utility/Explosion.gd" id="1_2oeu7"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mi2ba"]
+
+[node name="Explosion" type="Node2D" unique_id=957049640 node_paths=PackedStringArray("explosionArea")]
+scale = Vector2(5, 5)
+script = ExtResource("1_2oeu7")
+explosionArea = NodePath("Area2D")
+
+[node name="Body" type="Polygon2D" parent="." unique_id=1869843022]
+color = Color(0.67058825, 0.20784314, 0, 0.4)
+polygon = PackedVector2Array(0, -8, 6, -6, 8, 0, 6, 6, 0, 8, -6, 6, -8, 0, -6, -6)
+
+[node name="Area2D" type="Area2D" parent="." unique_id=117317865]
+collision_layer = 0
+collision_mask = 1073741824
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1349183017]
+shape = SubResource("CircleShape2D_mi2ba")
+
+[connection signal="area_shape_entered" from="Area2D" to="." method="DealExplosiveDamage"]

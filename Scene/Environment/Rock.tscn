@@ -23,6 +23,7 @@ collision_mask = 2
 shape = SubResource("CircleShape2D_2q50q")
 
 [node name="CoverArea2D" parent="." unique_id=1546345715 node_paths=PackedStringArray("parent") instance=ExtResource("3_fvaf6")]
+collision_layer = 3221225472
 parent = NodePath("..")
 
 [editable path="CoverArea2D"]

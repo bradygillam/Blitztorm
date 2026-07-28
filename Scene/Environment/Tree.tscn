@@ -2,11 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bosy1twq3u4fa" path="res://Scripts/World/base_environmentalObject.gd" id="1_c0pmf"]
 [ext_resource type="Resource" uid="uid://dpji3hs2bhui6" path="res://Scripts/Resources/Environment/Tree.tres" id="2_qpqu8"]
-[ext_resource type="Script" uid="uid://ccvtot5rgskl3" path="res://Scripts/Utility/GetParentUtil.gd" id="3_ueshu"]
 [ext_resource type="PackedScene" uid="uid://bwdc2461s2m1s" path="res://Scene/Utility/CoverAreaUtil.tscn" id="4_ovhrg"]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_qpqu8"]
-radius = 7.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ut7a4"]
 radius = 7.0
@@ -20,16 +16,8 @@ objectData = ExtResource("2_qpqu8")
 color = Color(0, 0.44313726, 0, 0.8627451)
 polygon = PackedVector2Array(0, -8, 6, -6, 8, 0, 6, 6, 0, 8, -6, 6, -8, 0, -6, -6)
 
-[node name="Area2D" type="Area2D" parent="." unique_id=2043516721 node_paths=PackedStringArray("parent")]
-collision_layer = 8
-collision_mask = 0
-script = ExtResource("3_ueshu")
-parent = NodePath("..")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1110433908]
-shape = SubResource("CircleShape2D_qpqu8")
-
 [node name="CoverArea2D" parent="." unique_id=1546345715 node_paths=PackedStringArray("parent") instance=ExtResource("4_ovhrg")]
+collision_layer = 3221225472
 parent = NodePath("..")
 
 [node name="CollisionShape2D" parent="CoverArea2D" index="0" unique_id=692663631]

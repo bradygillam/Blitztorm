@@ -235,6 +235,8 @@ shape = SubResource("WorldBoundaryShape2D_sc4dx")
 
 [node name="Preview" type="Node2D" parent="Environment" unique_id=1311054482]
 
+[node name="Explosions" type="Node2D" parent="Environment" unique_id=1329310098]
+
 [node name="Entities" type="Node2D" parent="." unique_id=1646741825]
 
 [node name="Enemy" type="Node2D" parent="Entities" unique_id=758674355]

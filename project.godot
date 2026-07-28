@@ -65,6 +65,11 @@ Equipment_RotateCounterClockwise={
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":81,"key_label":0,"unicode":113,"location":0,"echo":false,"script":null)
 ]
 }
+Spawn_Explosion={
+"deadzone": 0.2,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":46,"key_label":0,"unicode":46,"location":0,"echo":false,"script":null)
+]
+}
 
 [layer_names]
 
@@ -75,6 +80,7 @@ Equipment_RotateCounterClockwise={
 2d_physics/layer_5="PlayerUnits"
 2d_physics/layer_6="FriendlyUnits"
 2d_physics/layer_7="EnemyUnits"
+2d_physics/layer_31="Explodable"
 2d_physics/layer_32="Cover"
 
 [physics]
