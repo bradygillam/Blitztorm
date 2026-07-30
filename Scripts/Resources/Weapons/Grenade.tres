@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="ExplosionData" format=3 uid="uid://n8coxjt5eeyq"]
+
+[ext_resource type="Script" uid="uid://b7ju5v2dhxhta" path="res://Scripts/Resources/Weapons/ExplosionData.gd" id="1_722i4"]
+
+[resource]
+script = ExtResource("1_722i4")
+Name = "Grenade"
+Damage_Low_Attack = 5.0
+Damage_High_Attack = 100.0
+Knockback_Low = 200.0
+Knockback_High = 200.0
+Explosion_Time = 0.75
+Size = 1.0
+metadata/_custom_type_script = "uid://b7ju5v2dhxhta"

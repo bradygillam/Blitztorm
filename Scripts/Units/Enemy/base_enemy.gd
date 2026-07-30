@@ -7,6 +7,8 @@ var enemyTargets: Array[FriendlyBaseUnit]
 
 var enemiesInRanges: Array
 
+var knockbackVelocity: Vector2 = Vector2.ZERO
+
 func _ready() -> void:
 	super()
 	unitData = unitData.duplicate()
@@ -17,6 +19,11 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	if IsDead():
 		TransitionDeadState()
+
+func _physics_process(delta: float) -> void:
+	knockbackVelocity = knockbackVelocity.move_toward(Vector2.ZERO, unitData.DecayRate_Knockback * delta)
+	velocity = knockbackVelocity
+	move_and_slide()
 
 func IsDead() -> bool:
 	return unitData.Health <= 0
@@ -34,6 +41,11 @@ func TakeHit(damage: float, attackDirection: Vector2) -> void:
 
 func TakeExplosiveHit(damage: float, attackDirection: Vector2) -> void:
 	TakeHit(damage, attackDirection)
+
+func TakeKnockback(distance: float, knockbackDirection: Vector2) -> void:
+	if distance == 0:
+		return
+	knockbackVelocity = knockbackDirection.normalized() * distance
 
 func AddEnemyToRange(body: Node2D, priority: int) -> void:
 	while enemiesInRanges.size() <= priority:

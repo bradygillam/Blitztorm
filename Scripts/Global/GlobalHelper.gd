@@ -111,6 +111,13 @@ func ResolveShot(attacker: Node2D, attackee: Node2D, objectsInWay) -> Node2D:
 	
 	return null
 
+func ResolveExplosion(attackee: Node2D, objectsInWay) -> float:
+	var effectiveness = 1.0
+	for object in objectsInWay:
+		if object.global_position.distance_to(attackee.global_position) < object.GetObjectData().Attackee_MaxDistanceForEffectiveness_Explosive:
+			effectiveness *= (1 - object.GetObjectData().Cover_Effectiveness_Explosive)
+	return effectiveness
+
 func SpawnBloodSplatter(position: Vector2, rotation: float) -> void:
 	var newSplatter: Node2D = bloodSplatterPrefab.instantiate()
 	

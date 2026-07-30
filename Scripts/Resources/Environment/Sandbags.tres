@@ -15,4 +15,6 @@ Cover_Effectiveness = 0.8
 Attackee_MaxDistanceForAnyEffectiveness = 100.0
 Attacker_MaxDistanceToZeroEffectiveness = 10.0
 Attacker_MaxDistanceToMaxEffectiveness = 50.0
+Cover_Effectiveness_Explosive = 0.9
+Attackee_MaxDistanceForEffectiveness_Explosive = 2000.0
 metadata/_custom_type_script = "uid://r236itrcyhxr"

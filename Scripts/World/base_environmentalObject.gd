@@ -15,6 +15,9 @@ func TakeHit(damage: float, attackDirection: Vector2) -> void:
 
 func TakeExplosiveHit(damage: float, attackDirection: Vector2) -> void:
 	TakeHit(damage, attackDirection)
-
+	
+func TakeKnockback(_distance: float, _knockbackDirection: Vector2) -> void:
+	return
+	
 func GetObjectData():
 	return objectData

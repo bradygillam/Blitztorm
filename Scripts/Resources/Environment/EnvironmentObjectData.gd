@@ -34,7 +34,8 @@ func GetChanceToHitModFromAttacker(distanceFromAttacker: float) -> float:
 		return 1
 	
 	return (Attacker_MaxDistanceToMaxEffectiveness - distanceFromAttacker) / (Attacker_MaxDistanceToMaxEffectiveness - Attacker_MaxDistanceToZeroEffectiveness)
-
+@export var Cover_Effectiveness_Explosive: float
+@export var Attackee_MaxDistanceForEffectiveness_Explosive: float
 
 func SetInitialData() -> void:
 	Size = randf_range(Size_min, Size_max)

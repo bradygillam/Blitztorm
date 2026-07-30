@@ -32,6 +32,8 @@ func GetChanceToHitModFromAttacker(distanceFromAttacker: float) -> float:
 		return 1
 	
 	return (Attacker_MaxDistanceToMaxEffectiveness - distanceFromAttacker) / (Attacker_MaxDistanceToMaxEffectiveness - Attacker_MaxDistanceToZeroEffectiveness)
+@export var Cover_Effectiveness_Explosive: float
+@export var Attackee_MaxDistanceForEffectiveness_Explosive: float
 
 @export_group("Attack")
 @export var Number_Low_Attack: int
@@ -52,3 +54,6 @@ func GetChanceToHitModFromAttacker(distanceFromAttacker: float) -> float:
 @export var Movement_ForwardStep: float
 @export var Movement_ForwardVarience: float
 @export var Movement_VerticalVarience: float
+
+@export_group("Knockback")
+@export var DecayRate_Knockback: float

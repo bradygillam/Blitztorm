@@ -10,4 +10,6 @@ Size_max = 2.5
 Cover_Effectiveness = 0.1
 Attackee_MaxDistanceForMaxEffectiveness = 2000.0
 Attackee_MaxDistanceForAnyEffectiveness = 2001.0
+Cover_Effectiveness_Explosive = 1.0
+Attackee_MaxDistanceForEffectiveness_Explosive = 2000.0
 metadata/_custom_type_script = "uid://bpjtwurj2ym48"
