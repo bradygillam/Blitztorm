@@ -1,6 +1,8 @@
 extends State
 class_name FriendlyMove
 
+@export var nextState: State
+
 @export var friendly: FriendlyBaseUnit
 
 @export var navAgent: NavigationAgent2D
@@ -27,7 +29,7 @@ func Exit() -> void:
 
 func PhysicsUpdate(delta: float) -> void:
 	if navAgent.is_navigation_finished() or !navAgent.is_target_reachable():
-		Transitioned.emit(self, "FriendlyIdle")
+		Transitioned.emit(self, nextState)
 		return
 	var next_point = navAgent.get_next_path_position()
 	var direction = (next_point - characterAgent.global_position).normalized()

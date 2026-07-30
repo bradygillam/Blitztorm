@@ -1,6 +1,8 @@
 extends BaseUnit
 class_name FriendlyBaseUnit
 
+@export var deadState: State
+
 @export var unitData: FriendlyData
 
 var playerInfoUI: UnitInfoUI
@@ -34,7 +36,7 @@ func IsDead() -> bool:
 	return unitData.Health <= 0
 
 func TransitionDeadState() -> void:
-	stateMachine.onStateTransition(stateMachine.currentState, "FriendlyDead")
+	stateMachine.onStateTransition(stateMachine.currentState, deadState)
 	base.color = deadColour
 
 

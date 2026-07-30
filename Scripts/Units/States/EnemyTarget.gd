@@ -1,6 +1,8 @@
 extends State
 class_name EnemyTarget
 
+@export var nextState: State
+
 @export var enemy: EnemyBaseUnit
 @export var targetTimer: Timer
 
@@ -27,7 +29,7 @@ func Exit() -> void:
 func CallSelectEnemy() -> void:
 	if enemy.stateMachine.currentState == self:
 		enemy.enemyTargets = SelectEnemy()
-		Transitioned.emit(self, "EnemyRotateToTarget")
+		Transitioned.emit(self, nextState)
 
 func SelectEnemy() -> Array[FriendlyBaseUnit]:
 	for enemiesInPriorityLevel in enemy.enemiesInRanges:

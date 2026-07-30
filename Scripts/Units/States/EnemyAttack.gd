@@ -1,6 +1,8 @@
 extends State
 class_name EnemyAttack
 
+@export var nextState: State
+
 @export var enemy: EnemyBaseUnit
 @export var muzzleFlashTimer: Timer
 @export var betweenAttacksTimer: Timer
@@ -15,7 +17,7 @@ func Enter() -> void:
 func CallAttackEnemy() -> void:
 	if enemy.stateMachine.currentState == self:
 		await AttackEnemy()
-		Transitioned.emit(self, "EnemyMove")
+		Transitioned.emit(self, nextState)
 
 func AttackEnemy() -> void:
 	for friendly: FriendlyBaseUnit in enemy.enemyTargets:

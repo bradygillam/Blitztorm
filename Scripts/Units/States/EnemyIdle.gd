@@ -1,6 +1,8 @@
 extends State
 class_name EnemyIdle
 
+@export var nextState: State
+
 @export var enemy: EnemyBaseUnit
 @export var idleTimer: Timer
 
@@ -14,4 +16,4 @@ func Exit() -> void:
 	idleTimer.stop()
 
 func OnTimeout() -> void:
-	Transitioned.emit(self, "EnemyTarget")
+	Transitioned.emit(self, nextState)

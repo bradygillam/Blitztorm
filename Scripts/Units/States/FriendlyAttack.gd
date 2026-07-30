@@ -1,6 +1,8 @@
 extends State
 class_name FriendlyAttack
 
+@export var nextState: State
+
 @export var friendly: FriendlyBaseUnit
 @export var muzzleFlashTimer: Timer
 @export var betweenAttacksTimer: Timer
@@ -15,7 +17,7 @@ func Enter() -> void:
 func CallAttackEnemy() -> void:
 	if friendly.stateMachine.currentState == self:
 		await AttackEnemy()
-		Transitioned.emit(self, "FriendlyIdle")
+		Transitioned.emit(self, nextState)
 
 func AttackEnemy() -> void:
 	for enemy: EnemyBaseUnit in friendly.enemyTargets:

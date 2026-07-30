@@ -1,6 +1,8 @@
 extends State
 class_name EnemyRotateToTarget
 
+@export var nextState: State
+
 @export var enemy: EnemyBaseUnit
 
 var targetVector: Vector2
@@ -10,7 +12,7 @@ func Enter() -> void:
 
 func PhysicsUpdate(delta: float) -> void:
 	if IsFacingTarget():
-		Transitioned.emit(self, "EnemyAttack")
+		Transitioned.emit(self, nextState)
 	HandleRotation(delta)
 
 func HandleRotation(delta: float) -> void:

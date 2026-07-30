@@ -26,11 +26,10 @@ func _physics_process(delta: float) -> void:
 		currentState.PhysicsUpdate(delta)
 
 
-func onStateTransition(state, newStateName) -> void:
+func onStateTransition(state: State, newState: State) -> void:
 	if state != currentState:
 		return
 	
-	var newState: State = states.get(newStateName)
 	if !newState:
 		return
 	

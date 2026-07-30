@@ -1,6 +1,8 @@
 extends FriendlyBaseUnit
 class_name PlayerBaseUnit
 
+@export var moveState: State
+
 @export var selectedColour: Color
 
 var isSelected: bool
@@ -20,6 +22,6 @@ func TransitionDeadState() -> void:
 
 func AssignDestination(destinationIn: Vector2) -> void:
 	destination = destinationIn
-	stateMachine.onStateTransition(stateMachine.currentState, "FriendlyMove")
+	stateMachine.onStateTransition(stateMachine.currentState, moveState)
 	isSelected = false
 	base.color = baseColour

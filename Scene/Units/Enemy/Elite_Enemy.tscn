@@ -24,11 +24,12 @@ radius = 385.04675
 [sub_resource type="CircleShape2D" id="CircleShape2D_gpfs1"]
 radius = 806.00555
 
-[node name="Elite_Enemy" type="CharacterBody2D" unique_id=1264052095]
+[node name="Elite_Enemy" type="CharacterBody2D" unique_id=1264052095 node_paths=PackedStringArray("deadState")]
 z_index = 3
 collision_layer = 64
 collision_mask = 118
 script = ExtResource("1_knkwd")
+deadState = NodePath("StateMachine/EnemyDead")
 unitData = ExtResource("2_6bry5")
 baseColour = Color(0.24313726, 0, 0, 1)
 deadColour = Color(0.05882353, 0, 0, 1)
@@ -92,20 +93,24 @@ wait_time = 0.2
 [node name="StateMachine" parent="." unique_id=1871748933 node_paths=PackedStringArray("initialState") instance=ExtResource("4_2xl1m")]
 initialState = NodePath("EnemySpawn")
 
-[node name="EnemySpawn" parent="StateMachine" unique_id=1685020935 node_paths=PackedStringArray("enemy", "navAgent", "characterAgent") instance=ExtResource("5_qr0si")]
+[node name="EnemySpawn" parent="StateMachine" unique_id=1685020935 node_paths=PackedStringArray("nextState", "enemy", "navAgent", "characterAgent") instance=ExtResource("5_qr0si")]
+nextState = NodePath("../EnemyIdle")
 enemy = NodePath("../..")
 navAgent = NodePath("../../NavigationAgent2D")
 characterAgent = NodePath("../..")
 
-[node name="EnemyMove" parent="StateMachine" unique_id=2015326510 node_paths=PackedStringArray("enemy", "navAgent", "characterAgent") instance=ExtResource("6_gpfs1")]
+[node name="EnemyIdle" parent="StateMachine" unique_id=1773776271 node_paths=PackedStringArray("nextState", "enemy") instance=ExtResource("7_vrnry")]
+nextState = NodePath("../EnemyTarget")
+enemy = NodePath("../..")
+
+[node name="EnemyMove" parent="StateMachine" unique_id=2015326510 node_paths=PackedStringArray("nextState", "enemy", "navAgent", "characterAgent") instance=ExtResource("6_gpfs1")]
+nextState = NodePath("../EnemyIdle")
 enemy = NodePath("../..")
 navAgent = NodePath("../../NavigationAgent2D")
 characterAgent = NodePath("../..")
 
-[node name="EnemyIdle" parent="StateMachine" unique_id=1773776271 node_paths=PackedStringArray("enemy") instance=ExtResource("7_vrnry")]
-enemy = NodePath("../..")
-
-[node name="EnemyTarget" parent="StateMachine" unique_id=2084272298 node_paths=PackedStringArray("enemy") instance=ExtResource("7_13x7l")]
+[node name="EnemyTarget" parent="StateMachine" unique_id=2084272298 node_paths=PackedStringArray("nextState", "enemy") instance=ExtResource("7_13x7l")]
+nextState = NodePath("../EnemyRotateToTarget")
 enemy = NodePath("../..")
 
 [node name="EnemyDead" parent="StateMachine" unique_id=1277123385 node_paths=PackedStringArray("enemy", "navAgent", "characterAgent") instance=ExtResource("8_13x7l")]
@@ -113,12 +118,14 @@ enemy = NodePath("../..")
 navAgent = NodePath("../../NavigationAgent2D")
 characterAgent = NodePath("../..")
 
-[node name="EnemyAttack" parent="StateMachine" unique_id=1767765195 node_paths=PackedStringArray("enemy", "muzzleFlashTimer", "muzzleFlashSprite") instance=ExtResource("9_r1ya2")]
+[node name="EnemyAttack" parent="StateMachine" unique_id=1767765195 node_paths=PackedStringArray("nextState", "enemy", "muzzleFlashTimer", "muzzleFlashSprite") instance=ExtResource("9_r1ya2")]
+nextState = NodePath("../EnemyMove")
 enemy = NodePath("../..")
 muzzleFlashTimer = NodePath("../../MuzzleFlash/Timer")
 muzzleFlashSprite = NodePath("../../MuzzleFlash")
 
-[node name="EnemyRotateToTarget" parent="StateMachine" unique_id=867139078 node_paths=PackedStringArray("enemy") instance=ExtResource("10_2xl1m")]
+[node name="EnemyRotateToTarget" parent="StateMachine" unique_id=867139078 node_paths=PackedStringArray("nextState", "enemy") instance=ExtResource("10_2xl1m")]
+nextState = NodePath("../EnemyAttack")
 enemy = NodePath("../..")
 
 [connection signal="body_entered" from="TargetRanges/Area2D" to="." method="AddEnemyToRange" binds= [0]]

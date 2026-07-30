@@ -1,6 +1,8 @@
 extends State
 class_name FriendlyRotateToTarget
 
+@export var nextState: State
+
 @export var friendly: FriendlyBaseUnit
 
 var targetVector: Vector2
@@ -10,7 +12,7 @@ func Enter() -> void:
 
 func PhysicsUpdate(delta: float) -> void:
 	if IsFacingTarget():
-		Transitioned.emit(self, "FriendlyAttack")
+		Transitioned.emit(self, nextState)
 	HandleRotation(delta)
 
 func HandleRotation(delta: float) -> void:

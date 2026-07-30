@@ -1,6 +1,8 @@
 extends BaseUnit
 class_name EnemyBaseUnit
 
+@export var deadState: State
+
 @export var unitData: EnemyData
 
 var enemyTargets: Array[FriendlyBaseUnit]
@@ -29,7 +31,7 @@ func IsDead() -> bool:
 	return unitData.Health <= 0
 
 func TransitionDeadState() -> void:
-	stateMachine.onStateTransition(stateMachine.currentState, "EnemyDead")
+	stateMachine.onStateTransition(stateMachine.currentState, deadState)
 	base.color = deadColour
 
 func TakeHit(damage: float, attackDirection: Vector2) -> void:

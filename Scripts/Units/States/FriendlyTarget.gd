@@ -1,6 +1,8 @@
 extends State
 class_name FriendlyTarget
 
+@export var nextState: State
+
 @export var friendly: FriendlyBaseUnit
 @export var targetTimer: Timer
 
@@ -10,8 +12,6 @@ func _ready() -> void:
 	targetTimer.timeout.connect(CallSelectEnemy)
 
 func Enter() -> void:
-	#faceTowardsVector = friendly.position + Vector2.LEFT
-	
 	friendly.enemyTargets = friendly.enemyTargets.filter(func(e):
 		return e != null and e.unitData.Health > 0
 	)
@@ -27,7 +27,7 @@ func Exit() -> void:
 func CallSelectEnemy() -> void:
 	if friendly.stateMachine.currentState == self:
 		friendly.enemyTargets = SelectEnemy()
-		Transitioned.emit(self, "FriendlyRotateToTarget")
+		Transitioned.emit(self, nextState)
 
 func SelectEnemy() -> Array[EnemyBaseUnit]:
 	for enemiesInPriorityLevel in friendly.enemiesInRanges:
