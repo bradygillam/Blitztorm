@@ -123,9 +123,9 @@ muzzleFlashSprite = NodePath("../../MuzzleFlash")
 nextState = NodePath("../EnemyAttack")
 enemy = NodePath("../..")
 
-[connection signal="body_entered" from="TargetRanges/Area2D" to="." method="AddEnemyToRange" binds= [0]]
-[connection signal="body_exited" from="TargetRanges/Area2D" to="." method="RemoveEnemyFromRange" binds= [0]]
-[connection signal="body_entered" from="TargetRanges/Area2D2" to="." method="AddEnemyToRange" binds= [1]]
-[connection signal="body_exited" from="TargetRanges/Area2D2" to="." method="RemoveEnemyFromRange" binds= [1]]
+[connection signal="body_entered" from="TargetRanges/Area2D" to="." method="AddEnemyToRange" binds= [1]]
+[connection signal="body_exited" from="TargetRanges/Area2D" to="." method="RemoveEnemyFromRange" binds= [1]]
+[connection signal="body_entered" from="TargetRanges/Area2D2" to="." method="AddEnemyToRange" binds= [2]]
+[connection signal="body_exited" from="TargetRanges/Area2D2" to="." method="RemoveEnemyFromRange" binds= [2]]
 
 [editable path="CoverArea2D"]

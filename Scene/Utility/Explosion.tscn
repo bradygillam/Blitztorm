@@ -1,14 +1,12 @@
 [gd_scene format=3 uid="uid://b2c0uh0t21uq2"]
 
 [ext_resource type="Script" uid="uid://dpa3rkt4lotbg" path="res://Scripts/Utility/Explosion.gd" id="1_2oeu7"]
-[ext_resource type="Resource" uid="uid://n8coxjt5eeyq" path="res://Scripts/Resources/Weapons/Grenade.tres" id="2_mi2ba"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_mi2ba"]
 
 [node name="Explosion" type="Node2D" unique_id=957049640 node_paths=PackedStringArray("explosionArea")]
 scale = Vector2(5, 5)
 script = ExtResource("1_2oeu7")
-explosionData = ExtResource("2_mi2ba")
 explosionArea = NodePath("Area2D")
 
 [node name="Body" type="Polygon2D" parent="." unique_id=1869843022]

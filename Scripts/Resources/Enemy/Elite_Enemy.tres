@@ -6,7 +6,7 @@
 script = ExtResource("2_1fhyf")
 Name = "Elite"
 Cost = 200
-Health = 150
+Health = 100
 Cover_Effectiveness = 0.5
 Attackee_MaxDistanceForMaxEffectiveness = 15.0
 Attackee_MaxDistanceForAnyEffectiveness = 40.0

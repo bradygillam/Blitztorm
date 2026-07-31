@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="ExplosiveData" format=3 uid="uid://ccf82jmosvttr"]
+
+[ext_resource type="Script" uid="uid://b7ju5v2dhxhta" path="res://Scripts/Resources/Weapons/ExplosiveData.gd" id="1_e187i"]
+[ext_resource type="PackedScene" uid="uid://b2c0uh0t21uq2" path="res://Scene/Utility/Explosion.tscn" id="1_j8ksj"]
+
+[resource]
+script = ExtResource("1_e187i")
+Name = "Grenade"
+Explosion_Prefab = ExtResource("1_j8ksj")
+Speed_Movement = 400.0
+Height_Max = 3.0
+Damage_Low_Attack = 50.0
+Damage_High_Attack = 100.0
+Knockback_Low = 200.0
+Knockback_High = 200.0
+Explosion_Time = 0.75
+Explosion_Size = 0.8
+metadata/_custom_type_script = "uid://b7ju5v2dhxhta"

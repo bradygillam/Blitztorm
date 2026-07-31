@@ -1,7 +1,12 @@
 extends Resource
-class_name ExplosionData
+class_name ExplosiveData
 
 @export var Name: String
+@export var Explosion_Prefab: PackedScene
+
+@export_group("Movement")
+@export var Speed_Movement: float
+@export var Height_Max: float
 
 @export_group("Attack")
 @export var Damage_Low_Attack: float
@@ -13,4 +18,4 @@ class_name ExplosionData
 @export var Explosion_Time: float
 
 @export_group("Size")
-@export var Size: float
+@export var Explosion_Size: float

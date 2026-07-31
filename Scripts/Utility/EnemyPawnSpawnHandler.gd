@@ -10,5 +10,6 @@ func _ready() -> void:
 
 func SpawnUnit(unit: PackedScene) -> void:
 	var spawnedUnit = unit.instantiate()
+	spawnedUnit.worldRoot = get_tree().current_scene
 	spawnedUnit.global_position = GlobalHelper.GetRandomVectorInRectangle(lopLeftSpawnRectangleCorner, bottomRightSpawnRectangleCorner)
 	parentContainer.add_child(spawnedUnit)

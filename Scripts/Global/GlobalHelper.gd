@@ -25,6 +25,9 @@ func GetSpawnTargetVector(currentPosition: Vector2, isEnemySpawn: bool) -> Vecto
 func GetRandomVectorInRectangle(topLeft: Vector2, bottomRight: Vector2) -> Vector2:
 	return Vector2(randf_range(topLeft.x, bottomRight.x), randf_range(topLeft.y, bottomRight.y))
 
+func GetRandomVectorInCircle(center: Vector2, radius: float) -> Vector2:
+	return center + Vector2.from_angle(randf() * TAU) * randf() * radius
+
 func GetMovementRectangleVectors(currentPosition: Vector2, forwardScalar: float, horizontalVariabilityScalar: float, verticalVariabilityScalar: float) -> Array[Vector2]:
 	var centerRectangle: Vector2 = currentPosition + (forwardScalar * Vector2.RIGHT)
 	var topLeftRectangle: Vector2 = centerRectangle + (horizontalVariabilityScalar * Vector2.LEFT) + (verticalVariabilityScalar * Vector2.UP)
@@ -141,3 +144,17 @@ func SpawnDebris(position: Vector2, rotation: float) -> void:
 	newDebrisPile.global_position = position + offset
 	newDebrisPile.global_rotation = rotation + randf_range(-0.5, 0.5)
 	debrisContainer.add_child(newDebrisPile)
+
+func AreTeammatesCloseToTarget(target, attacker) -> bool:
+	var teammateList: Array
+	if attacker is FriendlyBaseUnit:
+		teammateList = UnitHandler.playerUnits
+	elif attacker is EnemyBaseUnit:
+		teammateList = UnitHandler.enemyUnits
+	
+	for teammate in teammateList:
+		if (teammate.global_position.distance_squared_to(target.global_position) < 
+			attacker.GetObjectData().AccuracyRadius_ExplosiveProjectile * attacker.GetObjectData().AccuracyRadius_ExplosiveProjectile):
+			return true
+	
+	return false

@@ -7,6 +7,7 @@ class_name BaseUnit
 var destinationSpawn: Vector2
 var destination: Vector2
 var base: Polygon2D
+var worldRoot: Node2D
 
 var stateMachine: StateMachine
 

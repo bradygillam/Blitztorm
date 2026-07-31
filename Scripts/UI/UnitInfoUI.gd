@@ -37,6 +37,10 @@ func UnDrawPawnInfoUI() -> void:
 
 func DrawUI() -> void:
 	if unitData == null:
+		UnDrawPawnInfoUI()
+		return
+	if unitState == null:
+		UnDrawPawnInfoUI()
 		return
 	UI_name.text = "Unit: " + unitData.Name
 	UI_state.text = "State: " + unitState.name

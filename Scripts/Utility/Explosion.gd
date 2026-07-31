@@ -1,11 +1,11 @@
 extends Node2D
 class_name Explosion
 
-@export var explosionData: ExplosionData
+var explosionData: ExplosiveData
 @export var explosionArea: Area2D
 
 func _ready() -> void:
-	scale *= explosionData.Size
+	scale *= explosionData.Explosion_Size
 	await get_tree().create_timer(explosionData.Explosion_Time).timeout
 	queue_free()
 

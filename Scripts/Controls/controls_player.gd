@@ -34,7 +34,6 @@ var previewRotationSpeed: float = 0.01
 func _ready() -> void:
 	equipmentSpawnHandler = get_tree().root.find_child("PlayerEquipmentSpawnHandler", true, false)
 	equipmentPreviewContainer = get_tree().root.find_child("Preview", true, false)
-	explosionContainer = get_tree().root.find_child("Explosions", true, false)
 	EnterNormalState()
 	selectionSquare = ColorRect.new()
 	selectionSquare.color = selectionSquareColour
@@ -54,8 +53,6 @@ func _ready() -> void:
 
 
 func _process(_delta: float) -> void:
-	if Input.is_action_pressed("Spawn_Explosion") and Input.is_action_just_released("Equipment_Place"):
-		SpawnExplosion()
 	match controlsState:
 		ControlState.NORMAL:
 			HandleUnitSelection()
@@ -202,10 +199,3 @@ func EnterNormalState() -> void:
 	controlsState = ControlState.NORMAL
 	if equipmentPreview:
 		equipmentPreview.queue_free()
-
-var explosionPrefab: PackedScene = preload("res://Scene/Utility/Explosion.tscn")
-var explosionContainer: Node2D
-func SpawnExplosion() -> void:
-	var e:Explosion = explosionPrefab.instantiate()
-	e.global_position = get_viewport().get_mouse_position()
-	explosionContainer.add_child(e)
