@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://ce58vmecrfdfg"]
+
+[ext_resource type="Script" uid="uid://bc0m1stw6xno2" path="res://Scripts/Units/States/EnemyExplosiveTarget.gd" id="1_43441"]
+
+[node name="EnemyExplosiveTarget" type="Node2D" unique_id=1685020935 node_paths=PackedStringArray("targetTimer")]
+script = ExtResource("1_43441")
+targetTimer = NodePath("Timer")
+
+[node name="Timer" type="Timer" parent="." unique_id=649568612]

@@ -39,6 +39,7 @@ func GetChanceToHitModFromAttacker(distanceFromAttacker: float) -> float:
 @export var Number_Low_Attack: int
 @export var Number_High_Attack: int
 @export var Accuracy_Attack: float
+@export var AccuracyRadius_ExplosiveProjectile: float
 @export var Damage_Low_Attack: float
 @export var Damage_High_Attack: float
 @export var Time_Between_Attacks: float

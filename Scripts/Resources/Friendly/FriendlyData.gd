@@ -35,7 +35,6 @@ func GetChanceToHitModFromAttacker(distanceFromAttacker: float) -> float:
 @export var Cover_Effectiveness_Explosive: float
 @export var Attackee_MaxDistanceForEffectiveness_Explosive: float
 
-
 @export_group("Attack")
 @export var Number_Low_Attack: int
 @export var Number_High_Attack: int

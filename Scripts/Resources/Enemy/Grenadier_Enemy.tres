@@ -1,9 +1,9 @@
-[gd_resource type="Resource" script_class="FriendlyData" format=3 uid="uid://66ejkbj2p0bm"]
+[gd_resource type="Resource" script_class="EnemyData" format=3 uid="uid://bjs5lpc58auqe"]
 
-[ext_resource type="Script" uid="uid://chlh8sxpa63te" path="res://Scripts/Resources/Friendly/FriendlyData.gd" id="1_dahjw"]
+[ext_resource type="Script" uid="uid://dsygwtwqajqkw" path="res://Scripts/Resources/Enemy/EnemyData.gd" id="1_pl72q"]
 
 [resource]
-script = ExtResource("1_dahjw")
+script = ExtResource("1_pl72q")
 Name = "Grenadier"
 Cost = 150
 Health = 100
@@ -25,5 +25,8 @@ Target_Time = 5.0
 Attack_Time = 3.0
 Rotation_Speed = 10.0
 Movement_Speed = 30.0
+Movement_ForwardStep = 50.0
+Movement_ForwardVarience = 10.0
+Movement_VerticalVarience = 25.0
 DecayRate_Knockback = 1000.0
-metadata/_custom_type_script = "uid://chlh8sxpa63te"
+metadata/_custom_type_script = "uid://dsygwtwqajqkw"

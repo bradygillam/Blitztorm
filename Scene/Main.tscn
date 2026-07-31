@@ -14,6 +14,8 @@
 [ext_resource type="Resource" uid="uid://dqkrijtouonkl" path="res://Scripts/Resources/Enemy/Recruit_Enemy.tres" id="6_hueuk"]
 [ext_resource type="Resource" uid="uid://dadnfy4b35x84" path="res://Scripts/Resources/Enemy/Elite_Enemy.tres" id="8_6a8me"]
 [ext_resource type="Script" uid="uid://no6su0j110m0" path="res://Scripts/Utility/PlayerEquipmentSpawnHandler.gd" id="8_sc4dx"]
+[ext_resource type="Resource" uid="uid://bjs5lpc58auqe" path="res://Scripts/Resources/Enemy/Grenadier_Enemy.tres" id="15_gclda"]
+[ext_resource type="PackedScene" uid="uid://dy7yhoyb805uh" path="res://Scene/Units/Enemy/Grenadier_Enemy.tscn" id="16_kp1vv"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_i0sg4"]
 vertices = PackedVector2Array(1419.0078, 798, 2.0078125, 798, 2.9921875, 2, 1419.9922, 2)
@@ -269,7 +271,8 @@ script = ExtResource("3_h175a")
 script = ExtResource("4_h175a")
 enemies = Dictionary[ExtResource("5_h3nmf"), PackedScene]({
 ExtResource("6_hueuk"): ExtResource("6_aan6j"),
-ExtResource("8_6a8me"): ExtResource("6_h3nmf")
+ExtResource("8_6a8me"): ExtResource("6_h3nmf"),
+ExtResource("15_gclda"): ExtResource("16_kp1vv")
 })
 
 [node name="WaveTimer" type="Timer" parent="GameManager/WaveHandler" unique_id=1169303678]

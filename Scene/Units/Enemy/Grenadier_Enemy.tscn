@@ -1,0 +1,132 @@
+[gd_scene format=3 uid="uid://dy7yhoyb805uh"]
+
+[ext_resource type="Script" uid="uid://djnk4p36vo1d1" path="res://Scripts/Units/Enemy/base_enemy.gd" id="1_l3ml1"]
+[ext_resource type="Resource" uid="uid://dqkrijtouonkl" path="res://Scripts/Resources/Enemy/Recruit_Enemy.tres" id="2_cb6yj"]
+[ext_resource type="PackedScene" uid="uid://bwdc2461s2m1s" path="res://Scene/Utility/CoverAreaUtil.tscn" id="3_dylsj"]
+[ext_resource type="PackedScene" uid="uid://bad5qptc3k7rr" path="res://Scripts/Units/States/SceneStates/StateMachine.tscn" id="4_u4sf8"]
+[ext_resource type="PackedScene" uid="uid://dwwhmnsyadbw0" path="res://Scripts/Units/States/SceneStates/EnemySpawn.tscn" id="5_vrjv5"]
+[ext_resource type="PackedScene" uid="uid://cvrpk6s5w4qub" path="res://Scripts/Units/States/SceneStates/EnemyIdle.tscn" id="6_3ct24"]
+[ext_resource type="PackedScene" uid="uid://ihyeuw7f0t7w" path="res://Scripts/Units/States/SceneStates/EnemyMove.tscn" id="7_mhmay"]
+[ext_resource type="PackedScene" uid="uid://ce58vmecrfdfg" path="res://Scripts/Units/States/SceneStates/EnemyExplosiveTarget.tscn" id="8_dylsj"]
+[ext_resource type="PackedScene" uid="uid://b16tb34md4r4h" path="res://Scripts/Units/States/SceneStates/EnemyDead.tscn" id="9_5nx4n"]
+[ext_resource type="PackedScene" uid="uid://becetpxdlrbvy" path="res://Scripts/Units/States/SceneStates/EnemyRotateToTarget.tscn" id="11_ojmqj"]
+[ext_resource type="PackedScene" uid="uid://c8fo0jldbx2cf" path="res://Scripts/Units/States/SceneStates/EnemyGrenadierAttack.tscn" id="11_u4sf8"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_x0040"]
+radius = 8.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hiq53"]
+radius = 7.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_l3ml1"]
+radius = 108.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_cb6yj"]
+radius = 385.04675
+
+[node name="Grenadier_Enemy" type="CharacterBody2D" unique_id=903288569 node_paths=PackedStringArray("deadState")]
+z_index = 3
+collision_layer = 64
+collision_mask = 118
+script = ExtResource("1_l3ml1")
+deadState = NodePath("StateMachine/EnemyDead")
+unitData = ExtResource("2_cb6yj")
+baseColour = Color(0.5491205, 0.54476804, 0.4932148, 1)
+deadColour = Color(0.05882353, 0, 0, 1)
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=869072963]
+target_desired_distance = 1.0
+path_max_distance = 10.0
+avoidance_enabled = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1192740086]
+shape = SubResource("CircleShape2D_x0040")
+
+[node name="CoverArea2D" parent="." unique_id=1546345715 node_paths=PackedStringArray("parent") instance=ExtResource("3_dylsj")]
+collision_layer = 3221225472
+parent = NodePath("..")
+
+[node name="CollisionShape2D" parent="CoverArea2D" index="0" unique_id=692663631]
+shape = SubResource("CircleShape2D_hiq53")
+
+[node name="TargetRanges" type="Node2D" parent="." unique_id=1720400052]
+
+[node name="Area2D" type="Area2D" parent="TargetRanges" unique_id=1916383931]
+collision_layer = 0
+collision_mask = 48
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TargetRanges/Area2D" unique_id=807481148]
+shape = SubResource("CircleShape2D_l3ml1")
+debug_color = Color(0, 0.6, 0.7019608, 0.03137255)
+
+[node name="Area2D2" type="Area2D" parent="TargetRanges" unique_id=1781144439]
+collision_layer = 0
+collision_mask = 48
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TargetRanges/Area2D2" unique_id=740441917]
+shape = SubResource("CircleShape2D_cb6yj")
+debug_color = Color(0, 0.6, 0.7019608, 0.03137255)
+
+[node name="Explosions" type="Node2D" parent="." unique_id=833791632]
+
+[node name="Body" type="Polygon2D" parent="." unique_id=1561557993]
+polygon = PackedVector2Array(0, -8, 6, -6, 8, 0, 6, 6, 0, 8, -6, 6, -8, 0, -6, -6)
+
+[node name="Direction" type="Polygon2D" parent="." unique_id=1020710920]
+position = Vector2(-1, -2)
+color = Color(0, 0, 0, 1)
+polygon = PackedVector2Array(8, 2, 3, 5, 3, -1)
+
+[node name="MuzzleFlash" type="Polygon2D" parent="." unique_id=183309798]
+visible = false
+position = Vector2(13, 3)
+scale = Vector2(1, 1.0416667)
+color = Color(1, 1, 0, 1)
+polygon = PackedVector2Array(-5, 0, 0, 0.96000004, 0, -0.96000004)
+
+[node name="Timer" type="Timer" parent="MuzzleFlash" unique_id=299408251]
+wait_time = 0.2
+
+[node name="StateMachine" parent="." unique_id=1871748933 node_paths=PackedStringArray("initialState") instance=ExtResource("4_u4sf8")]
+initialState = NodePath("EnemySpawn")
+
+[node name="EnemySpawn" parent="StateMachine" unique_id=1685020935 node_paths=PackedStringArray("nextState", "enemy", "navAgent", "characterAgent") instance=ExtResource("5_vrjv5")]
+nextState = NodePath("../EnemyIdle")
+enemy = NodePath("../..")
+navAgent = NodePath("../../NavigationAgent2D")
+characterAgent = NodePath("../..")
+
+[node name="EnemyIdle" parent="StateMachine" unique_id=1773776271 node_paths=PackedStringArray("nextState", "enemy") instance=ExtResource("6_3ct24")]
+nextState = NodePath("../EnemyExplosiveTarget")
+enemy = NodePath("../..")
+
+[node name="EnemyMove" parent="StateMachine" unique_id=2015326510 node_paths=PackedStringArray("nextState", "enemy", "navAgent", "characterAgent") instance=ExtResource("7_mhmay")]
+nextState = NodePath("../EnemyIdle")
+enemy = NodePath("../..")
+navAgent = NodePath("../../NavigationAgent2D")
+characterAgent = NodePath("../..")
+
+[node name="EnemyExplosiveTarget" parent="StateMachine" unique_id=1922171303 node_paths=PackedStringArray("nextState", "enemy") instance=ExtResource("8_dylsj")]
+nextState = NodePath("../EnemyRotateToTarget")
+enemy = NodePath("../..")
+
+[node name="EnemyDead" parent="StateMachine" unique_id=1492669391 node_paths=PackedStringArray("enemy", "navAgent", "characterAgent") instance=ExtResource("9_5nx4n")]
+enemy = NodePath("../..")
+navAgent = NodePath("../../NavigationAgent2D")
+characterAgent = NodePath("../..")
+
+[node name="EnemyGrenadierAttack" parent="StateMachine" unique_id=961330192 node_paths=PackedStringArray("nextState", "enemy", "muzzleFlashSprite") instance=ExtResource("11_u4sf8")]
+nextState = NodePath("../EnemyMove")
+enemy = NodePath("../..")
+muzzleFlashSprite = NodePath("../../MuzzleFlash")
+
+[node name="EnemyRotateToTarget" parent="StateMachine" unique_id=479818656 node_paths=PackedStringArray("nextState", "enemy") instance=ExtResource("11_ojmqj")]
+nextState = NodePath("../EnemyGrenadierAttack")
+enemy = NodePath("../..")
+
+[connection signal="body_entered" from="TargetRanges/Area2D" to="." method="AddEnemyToRange" binds= [0]]
+[connection signal="body_exited" from="TargetRanges/Area2D" to="." method="RemoveEnemyFromRange" binds= [0]]
+[connection signal="body_entered" from="TargetRanges/Area2D2" to="." method="AddEnemyToRange" binds= [1]]
+[connection signal="body_exited" from="TargetRanges/Area2D2" to="." method="RemoveEnemyFromRange" binds= [1]]
+
+[editable path="CoverArea2D"]
