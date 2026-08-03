@@ -28,17 +28,19 @@ func AttackEnemy() -> void:
 		objectsInWay.erase(enemy)
 		objectsInWay.erase(friendly)
 			
-		var numberOfAttacks: int = randi_range(friendly.unitData.Number_Low_Attack, friendly.unitData.Number_High_Attack)
+		var numberOfAttacks: int = randi_range(friendly.GetObjectData().Number_Low_Attack, friendly.GetObjectData().Number_High_Attack)
 		
 		for i in range(0, numberOfAttacks):
+			if friendly.IsDead():
+				return
 			var objectHit = GlobalHelper.ResolveShot(friendly, enemy, objectsInWay)
 			if objectHit != null:
 				objectHit.TakeHit(
-					randf_range(friendly.unitData.Damage_Low_Attack, friendly.unitData.Damage_High_Attack),
+					randf_range(friendly.GetObjectData().Damage_Low_Attack, friendly.GetObjectData().Damage_High_Attack),
 					objectHit.global_position - global_position
 				)
 			await AttackVisuals()
-			betweenAttacksTimer.start(friendly.unitData.Time_Between_Attacks)
+			betweenAttacksTimer.start(friendly.GetObjectData().Time_Between_Attacks)
 			await betweenAttacksTimer.timeout
 
 func GetAttackDirection() -> Vector2:

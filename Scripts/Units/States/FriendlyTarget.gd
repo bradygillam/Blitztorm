@@ -16,7 +16,7 @@ func Enter() -> void:
 		return e != null and e.unitData.Health > 0
 	)
 	
-	targetTimer.start(friendly.unitData.Target_Time)
+	targetTimer.start(friendly.GetObjectData().Target_Time)
 
 func PhysicsUpdate(delta: float) -> void:
 	HandleRotation(delta)
@@ -39,7 +39,7 @@ func SelectEnemy() -> Array[EnemyBaseUnit]:
 				objectsInWay.erase(enemy)
 				objectsInWay.erase(friendly)
 				var chanceToHit = GlobalHelper.GetModifiedChanceToHit(
-					friendly.unitData.Accuracy_Attack,
+					friendly.GetObjectData().Accuracy_Attack,
 					friendly,
 					enemy,
 					objectsInWay
@@ -52,4 +52,4 @@ func SelectEnemy() -> Array[EnemyBaseUnit]:
 	return []
 
 func HandleRotation(delta: float) -> void:
-	friendly.rotation = rotate_toward(friendly.rotation, (faceTowardsVector - friendly.global_position).angle(), friendly.unitData.Rotation_Speed * delta)
+	friendly.global_rotation = rotate_toward(friendly.global_rotation, (faceTowardsVector - friendly.global_position).angle(), friendly.GetObjectData().Rotation_Speed * delta)

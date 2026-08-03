@@ -10,7 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://ce58vmecrfdfg" path="res://Scripts/Units/States/SceneStates/EnemyExplosiveTarget.tscn" id="8_dylsj"]
 [ext_resource type="PackedScene" uid="uid://b16tb34md4r4h" path="res://Scripts/Units/States/SceneStates/EnemyDead.tscn" id="9_5nx4n"]
 [ext_resource type="PackedScene" uid="uid://becetpxdlrbvy" path="res://Scripts/Units/States/SceneStates/EnemyRotateToTarget.tscn" id="11_ojmqj"]
-[ext_resource type="PackedScene" uid="uid://c8fo0jldbx2cf" path="res://Scripts/Units/States/SceneStates/EnemyGrenadierAttack.tscn" id="11_u4sf8"]
+[ext_resource type="PackedScene" uid="uid://c8fo0jldbx2cf" path="res://Scripts/Units/States/SceneStates/EnemyExplosiveAttack.tscn" id="11_u4sf8"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_x0040"]
 radius = 8.0
@@ -115,13 +115,13 @@ enemy = NodePath("../..")
 navAgent = NodePath("../../NavigationAgent2D")
 characterAgent = NodePath("../..")
 
-[node name="EnemyGrenadierAttack" parent="StateMachine" unique_id=961330192 node_paths=PackedStringArray("nextState", "enemy", "muzzleFlashSprite") instance=ExtResource("11_u4sf8")]
+[node name="EnemyExplosiveAttack" parent="StateMachine" unique_id=961330192 node_paths=PackedStringArray("nextState", "enemy", "muzzleFlashSprite") instance=ExtResource("11_u4sf8")]
 nextState = NodePath("../EnemyMove")
 enemy = NodePath("../..")
 muzzleFlashSprite = NodePath("../../MuzzleFlash")
 
 [node name="EnemyRotateToTarget" parent="StateMachine" unique_id=479818656 node_paths=PackedStringArray("nextState", "enemy") instance=ExtResource("11_ojmqj")]
-nextState = NodePath("../EnemyGrenadierAttack")
+nextState = NodePath("../EnemyExplosiveAttack")
 enemy = NodePath("../..")
 
 [connection signal="body_entered" from="TargetRanges/Area2D" to="." method="AddEnemyToRange" binds= [0]]

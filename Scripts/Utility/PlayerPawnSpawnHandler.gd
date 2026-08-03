@@ -14,8 +14,6 @@ func spawnUnit(scene: PackedScene) -> void:
 		unit.queue_free()
 		return
 	
-	unit.worldRoot = get_tree().current_scene
-	
 	GlobalData.DecreasePlayerCash(unit.GetObjectData().Cost)
 	
 	unit.global_position = GlobalHelper.GetRandomVectorInRectangle(
@@ -32,3 +30,6 @@ func SpawnElite() -> void:
 
 func SpawnGrenadier() -> void:
 	spawnUnit(load("res://Scene/Units/Friendly/Player/Grenadier_Player.tscn"))
+
+func SpawnTank() -> void:
+	spawnUnit(load("res://Scene/Units/Friendly/Player/Tank_Player.tscn"))

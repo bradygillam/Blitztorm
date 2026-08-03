@@ -12,13 +12,13 @@ func _ready() -> void:
 	targetTimer.timeout.connect(CallSelectEnemy)
 
 func Enter() -> void:
-	faceTowardsVector = enemy.position + Vector2.RIGHT
+	faceTowardsVector = enemy.global_position + Vector2.RIGHT
 	
 	enemy.enemyTargets = enemy.enemyTargets.filter(func(e):
-		return e != null and e.unitData.Health > 0
+		return e != null and e.GetObjectData().Health > 0
 	)
 	
-	targetTimer.start(enemy.unitData.Target_Time)
+	targetTimer.start(enemy.GetObjectData().Target_Time)
 
 func PhysicsUpdate(delta: float) -> void:
 	HandleRotation(delta)
@@ -37,11 +37,11 @@ func SelectEnemy() -> Array[FriendlyBaseUnit]:
 			var targetWorkingList = enemiesInPriorityLevel.duplicate()
 			targetWorkingList.shuffle()
 			for target in targetWorkingList:
-				var objectsInWay = GlobalHelper.GetObjectsOnLine(enemy.position, target.position, get_world_2d())
+				var objectsInWay = GlobalHelper.GetObjectsOnLine(enemy.global_position, target.global_position, get_world_2d())
 				objectsInWay.erase(target)
 				objectsInWay.erase(enemy)
 				var chanceToHit = GlobalHelper.GetModifiedChanceToHit(
-					enemy.unitData.Accuracy_Attack,
+					enemy.GetObjectData().Accuracy_Attack,
 					enemy,
 					target,
 					objectsInWay
@@ -52,4 +52,4 @@ func SelectEnemy() -> Array[FriendlyBaseUnit]:
 	return []
 
 func HandleRotation(delta: float) -> void:
-	enemy.rotation = rotate_toward(enemy.rotation, (faceTowardsVector - enemy.global_position).angle(), enemy.unitData.Rotation_Speed * delta)
+	enemy.global_rotation = rotate_toward(enemy.global_rotation, (faceTowardsVector - enemy.global_position).angle(), enemy.GetObjectData().Rotation_Speed * delta)

@@ -78,8 +78,14 @@ layout_mode = 2
 text = "Grenadier
 "
 
+[node name="Tank" type="Button" parent="UI/CanvasLayer/Control/SpawnButtons" unique_id=619850493]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+text = "Tank
+"
+
 [node name="Control" type="Control" parent="UI/CanvasLayer/Control/SpawnButtons" unique_id=1239734295]
-custom_minimum_size = Vector2(993, 0)
+custom_minimum_size = Vector2(909, 0)
 layout_mode = 2
 mouse_filter = 2
 
@@ -282,6 +288,7 @@ autostart = true
 [connection signal="button_up" from="UI/CanvasLayer/Control/SpawnButtons/Recruit" to="GameManager/PlayerUnitSpawnHandler" method="SpawnRecruit"]
 [connection signal="button_up" from="UI/CanvasLayer/Control/SpawnButtons/Elite" to="GameManager/PlayerUnitSpawnHandler" method="SpawnElite"]
 [connection signal="button_up" from="UI/CanvasLayer/Control/SpawnButtons/Grenadier" to="GameManager/PlayerUnitSpawnHandler" method="SpawnGrenadier"]
+[connection signal="button_up" from="UI/CanvasLayer/Control/SpawnButtons/Tank" to="GameManager/PlayerUnitSpawnHandler" method="SpawnTank"]
 [connection signal="button_up" from="UI/CanvasLayer/Control/SpawnButtons/Sandbags" to="GameManager/PlayerEquipmentSpawnHandler" method="SpawnSandbags"]
 [connection signal="button_up" from="UI/CanvasLayer/Control/SpawnButtons/Trench" to="GameManager/PlayerEquipmentSpawnHandler" method="SpawnTrench"]
 [connection signal="timeout" from="GameManager/WaveHandler/WaveTimer" to="GameManager/WaveHandler" method="SpawnWave"]

@@ -26,11 +26,11 @@ func PhysicsUpdate(delta: float) -> void:
 		Transitioned.emit(self, nextState)
 	var next_point = navAgent.get_next_path_position()
 	var direction = (next_point - characterAgent.global_position).normalized()
-	var desired_velocity = direction * enemy.unitData.Movement_Speed
+	var desired_velocity = direction * enemy.GetObjectData().Movement_Speed
 	characterAgent.rotation = lerp_angle(
 		characterAgent.rotation,
 		desired_velocity.angle(),
-		enemy.unitData.Rotation_Speed * delta
+		enemy.GetObjectData().Rotation_Speed * delta
 	)
 	navAgent.velocity = desired_velocity
 

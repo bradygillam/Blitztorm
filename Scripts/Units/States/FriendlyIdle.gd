@@ -10,7 +10,7 @@ func _ready() -> void:
 	idleTimer.timeout.connect(OnTimeout)
 
 func Enter() -> void:
-	idleTimer.start(friendly.unitData.Idle_Time)
+	idleTimer.start(friendly.GetObjectData().Idle_Time)
 
 func Exit() -> void:
 	idleTimer.stop()

@@ -1,4 +1,4 @@
-extends BaseUnit
+extends MovableUnit
 class_name EnemyBaseUnit
 
 @export var deadState: State
@@ -23,7 +23,7 @@ func _process(_delta: float) -> void:
 		TransitionDeadState()
 
 func _physics_process(delta: float) -> void:
-	knockbackVelocity = knockbackVelocity.move_toward(Vector2.ZERO, unitData.DecayRate_Knockback * delta)
+	knockbackVelocity = knockbackVelocity.move_toward(Vector2.ZERO, GetObjectData().DecayRate_Knockback * delta)
 	velocity = knockbackVelocity
 	move_and_slide()
 

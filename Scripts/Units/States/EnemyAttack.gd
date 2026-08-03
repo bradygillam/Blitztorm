@@ -29,22 +29,22 @@ func AttackEnemy() -> void:
 		objectsInWay.erase(enemy)
 		
 		var modifiedAccuracy = GlobalHelper.GetModifiedChanceToHit(
-			enemy.unitData.Accuracy_Attack,
+			enemy.GetObjectData().Accuracy_Attack,
 			enemy,
 			friendly,
 			objectsInWay
 			)
 		
-		var numberOfAttacks: int = randi_range(enemy.unitData.Number_Low_Attack, enemy.unitData.Number_High_Attack)
+		var numberOfAttacks: int = randi_range(enemy.GetObjectData().Number_Low_Attack, enemy.GetObjectData().Number_High_Attack)
 		
 		for i in range(0, numberOfAttacks):
 			if randf() <= modifiedAccuracy:
 				friendly.TakeHit(
-					randf_range(enemy.unitData.Damage_Low_Attack, enemy.unitData.Damage_High_Attack),
+					randf_range(enemy.GetObjectData().Damage_Low_Attack, enemy.GetObjectData().Damage_High_Attack),
 					friendly.global_position - global_position
 				)
 			await AttackVisuals()
-			betweenAttacksTimer.start(enemy.unitData.Time_Between_Attacks)
+			betweenAttacksTimer.start(enemy.GetObjectData().Time_Between_Attacks)
 			await betweenAttacksTimer.timeout
 
 func GetAttackDirection() -> Vector2:

@@ -7,6 +7,9 @@ class_name PlayerBaseUnit
 
 var isSelected: bool
 
+func _ready() -> void:
+	super()
+	UnitHandler.playerUnits.append(self)
 
 func WasSelected() -> void:
 	isSelected = true

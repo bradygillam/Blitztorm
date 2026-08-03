@@ -12,8 +12,10 @@ func _ready() -> void:
 	targetTimer.timeout.connect(CallSelectEnemy)
 
 func Enter() -> void:
+	faceTowardsVector = enemy.global_position + Vector2.RIGHT
+	
 	enemy.enemyTargets = enemy.enemyTargets.filter(func(e):
-		return e != null and e.unitData.Health > 0
+		return e != null and e.GetObjectData().Health > 0
 	)
 	
 	targetTimer.start(enemy.unitData.Target_Time)
@@ -43,4 +45,4 @@ func SelectEnemy() -> Array[FriendlyBaseUnit]:
 	return []
 
 func HandleRotation(delta: float) -> void:
-	enemy.rotation = rotate_toward(enemy.rotation, (faceTowardsVector - enemy.global_position).angle(), enemy.unitData.Rotation_Speed * delta)
+	enemy.global_rotation = rotate_toward(enemy.global_rotation, (faceTowardsVector - enemy.global_position).angle(), enemy.GetObjectData().Rotation_Speed * delta)

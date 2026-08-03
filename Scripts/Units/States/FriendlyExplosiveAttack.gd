@@ -1,5 +1,5 @@
 extends State
-class_name FriendlyGrenadierAttack
+class_name FriendlyExplosiveAttack
 
 @export var nextState: State
 
@@ -10,14 +10,14 @@ class_name FriendlyGrenadierAttack
 var faceTowardsVector: Vector2
 @export var muzzleFlashSprite: Polygon2D
 
-var grenadePrefab: PackedScene = preload("res://Scene/Environment/Grenade.tscn")
+@export var grenadePrefab: PackedScene
 var explosionContainer: Node2D 
 
 func _ready() -> void:
+	await get_tree().physics_frame
 	explosionContainer = friendly.worldRoot.find_child("Explosions", true, false)
 
 func Enter() -> void:
-	faceTowardsVector = GetAttackDirection()
 	await CallAttackEnemy()
 
 func CallAttackEnemy() -> void:
@@ -30,19 +30,17 @@ func AttackEnemy() -> void:
 		if enemy == null:
 			continue
 		
-		var numberOfAttacks: int = randi_range(friendly.unitData.Number_Low_Attack, friendly.unitData.Number_High_Attack)
+		var numberOfAttacks: int = randi_range(friendly.GetObjectData().Number_Low_Attack, friendly.GetObjectData().Number_High_Attack)
 		
 		for i in range(0, numberOfAttacks):
+			if friendly.IsDead():
+				return
 			var destination: Vector2 = GlobalHelper.GetRandomVectorInCircle(enemy.global_position, friendly.GetObjectData().AccuracyRadius_ExplosiveProjectile)
 			SpawnGrenade(destination)
-			betweenAttacksTimer.start(friendly.unitData.Time_Between_Attacks)
+			if muzzleFlashSprite:
+				await AttackVisuals()
+			betweenAttacksTimer.start(friendly.GetObjectData().Time_Between_Attacks)
 			await betweenAttacksTimer.timeout
-
-func GetAttackDirection() -> Vector2:
-	if friendly.enemyTargets.size() == 0:
-		return friendly.position + Vector2.LEFT
-	else:
-		return friendly.enemyTargets[0].position
 
 func SpawnGrenade(destination: Vector2) -> void:
 	var grenade = grenadePrefab.instantiate()
@@ -50,3 +48,9 @@ func SpawnGrenade(destination: Vector2) -> void:
 	grenade.destination = destination
 	grenade.global_position = global_position
 	explosionContainer.add_child(grenade)
+
+func AttackVisuals() -> void:
+	muzzleFlashSprite.visible = true
+	muzzleFlashTimer.start(GlobalData.muzzleFlashDuration)
+	await muzzleFlashTimer.timeout
+	muzzleFlashSprite.visible = false

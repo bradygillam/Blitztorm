@@ -14,6 +14,7 @@ var grenadePrefab: PackedScene = preload("res://Scene/Environment/Grenade.tscn")
 var explosionContainer: Node2D 
 
 func _ready() -> void:
+	await get_tree().physics_frame
 	explosionContainer = enemy.worldRoot.find_child("Explosions", true, false)
 
 func Enter() -> void:
@@ -30,12 +31,12 @@ func AttackEnemy() -> void:
 		if friendly == null:
 			continue
 		
-		var numberOfAttacks: int = randi_range(enemy.unitData.Number_Low_Attack, enemy.unitData.Number_High_Attack)
+		var numberOfAttacks: int = randi_range(enemy.GetObjectData().Number_Low_Attack, enemy.GetObjectData().Number_High_Attack)
 		
 		for i in range(0, numberOfAttacks):
 			var destination: Vector2 = GlobalHelper.GetRandomVectorInCircle(friendly.global_position, enemy.GetObjectData().AccuracyRadius_ExplosiveProjectile)
 			SpawnGrenade(destination)
-			betweenAttacksTimer.start(enemy.unitData.Time_Between_Attacks)
+			betweenAttacksTimer.start(enemy.GetObjectData().Time_Between_Attacks)
 			await betweenAttacksTimer.timeout
 
 func GetAttackDirection() -> Vector2:

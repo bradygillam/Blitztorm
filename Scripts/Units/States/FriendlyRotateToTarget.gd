@@ -16,16 +16,16 @@ func PhysicsUpdate(delta: float) -> void:
 	HandleRotation(delta)
 
 func HandleRotation(delta: float) -> void:
-	friendly.rotation = rotate_toward(friendly.rotation, (targetVector - friendly.global_position).angle(), friendly.unitData.Rotation_Speed * delta)
+	friendly.global_rotation = rotate_toward(friendly.global_rotation, (targetVector - friendly.global_position).angle(), friendly.GetObjectData().Rotation_Speed * delta)
 
 func PickTargetRotationVector() -> Vector2:
 	if friendly.enemyTargets.size() <= 0:
-		return friendly.position + Vector2.LEFT
+		return friendly.global_position + (1000 * Vector2.LEFT)
 	else:
 		return friendly.enemyTargets[0].global_position
 
 func IsFacingTarget() -> bool:
 	var directionToTarget: Vector2 = (targetVector - friendly.global_position).normalized()
-	var facingDirection: Vector2 = Vector2.RIGHT.rotated(friendly.rotation)
+	var facingDirection: Vector2 = Vector2.RIGHT.rotated(friendly.global_rotation)
 
 	return facingDirection.dot(directionToTarget) > 0.99

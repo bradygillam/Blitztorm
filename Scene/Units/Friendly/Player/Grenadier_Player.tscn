@@ -9,8 +9,9 @@
 [ext_resource type="PackedScene" uid="uid://ri6bu8dcuhqu" path="res://Scripts/Units/States/SceneStates/FriendlyMove.tscn" id="7_hou41"]
 [ext_resource type="PackedScene" uid="uid://cleqysqebk1e6" path="res://Scripts/Units/States/SceneStates/FriendlyExplosiveTarget.tscn" id="8_ijso6"]
 [ext_resource type="PackedScene" uid="uid://ctqpj53f1n30q" path="res://Scripts/Units/States/SceneStates/FriendlyDead.tscn" id="9_swpqc"]
-[ext_resource type="PackedScene" uid="uid://xxc7dg0wghy5" path="res://Scripts/Units/States/SceneStates/FriendlyGrenadierAttack.tscn" id="10_ijso6"]
+[ext_resource type="PackedScene" uid="uid://xxc7dg0wghy5" path="res://Scripts/Units/States/SceneStates/FriendlyExplosiveAttack.tscn" id="10_ijso6"]
 [ext_resource type="PackedScene" uid="uid://d08e0x5wsr5mf" path="res://Scripts/Units/States/SceneStates/FriendlyRotateToTarget.tscn" id="11_iccn8"]
+[ext_resource type="PackedScene" uid="uid://by70l8htb2x33" path="res://Scene/Environment/Grenade.tscn" id="11_taiar"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ijso6"]
 radius = 8.0
@@ -72,11 +73,11 @@ collision_mask = 64
 shape = SubResource("CircleShape2D_58obc")
 debug_color = Color(0, 0.6, 0.7019608, 0.03137255)
 
-[node name="Aread2D2" type="Area2D" parent="TargetRanges" unique_id=1769675077]
+[node name="Area2D2" type="Area2D" parent="TargetRanges" unique_id=1769675077]
 collision_layer = 0
 collision_mask = 64
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="TargetRanges/Aread2D2" unique_id=1941602116]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TargetRanges/Area2D2" unique_id=1941602116]
 shape = SubResource("CircleShape2D_dxp7v")
 debug_color = Color(0, 0.6, 0.7019608, 0.03137255)
 
@@ -128,20 +129,20 @@ friendly = NodePath("../..")
 navAgent = NodePath("../../NavigationAgent2D")
 characterAgent = NodePath("../..")
 
-[node name="FriendlyGrenadierAttack" parent="StateMachine" unique_id=1463025367 node_paths=PackedStringArray("nextState", "friendly", "muzzleFlashSprite") instance=ExtResource("10_ijso6")]
+[node name="FriendlyExplosiveAttack" parent="StateMachine" unique_id=1463025367 node_paths=PackedStringArray("nextState", "friendly") instance=ExtResource("10_ijso6")]
 nextState = NodePath("../FriendlyIdle")
 friendly = NodePath("../..")
-muzzleFlashSprite = NodePath("../../MuzzleFlash")
+grenadePrefab = ExtResource("11_taiar")
 
 [node name="FriendlyRotateToTarget" parent="StateMachine" unique_id=1236871445 node_paths=PackedStringArray("nextState", "friendly") instance=ExtResource("11_iccn8")]
-nextState = NodePath("../FriendlyGrenadierAttack")
+nextState = NodePath("../FriendlyExplosiveAttack")
 friendly = NodePath("../..")
 
 [connection signal="mouse_entered" from="UI" to="." method="DrawPawnInfoUI"]
 [connection signal="mouse_exited" from="UI" to="." method="UnDrawPawnInfoUI"]
 [connection signal="body_entered" from="TargetRanges/Area2D" to="." method="AddEnemyToRange" binds= [0]]
 [connection signal="body_exited" from="TargetRanges/Area2D" to="." method="RemoveEnemyFromRange" binds= [0]]
-[connection signal="body_entered" from="TargetRanges/Aread2D2" to="." method="AddEnemyToRange" binds= [1]]
-[connection signal="body_exited" from="TargetRanges/Aread2D2" to="." method="RemoveEnemyFromRange" binds= [1]]
+[connection signal="body_entered" from="TargetRanges/Area2D2" to="." method="AddEnemyToRange" binds= [1]]
+[connection signal="body_exited" from="TargetRanges/Area2D2" to="." method="RemoveEnemyFromRange" binds= [1]]
 
 [editable path="CoverArea2D"]

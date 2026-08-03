@@ -15,9 +15,9 @@ func Enter() -> void:
 	var movementAreaVectors: Array[Vector2]
 	movementAreaVectors = GlobalHelper.GetMovementRectangleVectors(
 		enemy.position, 
-		enemy.unitData.Movement_ForwardStep, 
-		enemy.unitData.Movement_ForwardVarience, 
-		enemy.unitData.Movement_VerticalVarience)
+		enemy.GetObjectData().Movement_ForwardStep, 
+		enemy.GetObjectData().Movement_ForwardVarience, 
+		enemy.GetObjectData().Movement_VerticalVarience)
 	enemy.destination = GlobalHelper.GetRandomVectorInRectangle(movementAreaVectors[0], movementAreaVectors[1])
 	navAgent.target_position = enemy.destination
 
@@ -31,11 +31,11 @@ func PhysicsUpdate(delta: float) -> void:
 		return
 	var next_point = navAgent.get_next_path_position()
 	var direction = (next_point - characterAgent.global_position).normalized()
-	var desired_velocity = direction * enemy.unitData.Movement_Speed
+	var desired_velocity = direction * enemy.GetObjectData().Movement_Speed
 	characterAgent.rotation = lerp_angle(
 		characterAgent.rotation,
 		desired_velocity.angle(),
-		enemy.unitData.Rotation_Speed * delta
+		enemy.GetObjectData().Rotation_Speed * delta
 	)
 	navAgent.velocity = desired_velocity
 

@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="ExplosiveData" format=3 uid="uid://m8qq81tpy3st"]
+
+[ext_resource type="PackedScene" uid="uid://b2c0uh0t21uq2" path="res://Scene/Utility/Explosion.tscn" id="1_g8ns3"]
+[ext_resource type="Script" uid="uid://b7ju5v2dhxhta" path="res://Scripts/Resources/Weapons/ExplosiveData.gd" id="2_1jxhj"]
+
+[resource]
+script = ExtResource("2_1jxhj")
+Name = "Tank Shell"
+Explosion_Prefab = ExtResource("1_g8ns3")
+Speed_Movement = 800.0
+Height_Max = 1.5
+Damage_Low_Attack = 100.0
+Damage_High_Attack = 500.0
+Knockback_Low = 500.0
+Knockback_High = 1000.0
+Explosion_Time = 0.5
+Explosion_Size = 2.0
+metadata/_custom_type_script = "uid://b7ju5v2dhxhta"

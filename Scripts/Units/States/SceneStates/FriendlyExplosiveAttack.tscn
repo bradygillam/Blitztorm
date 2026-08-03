@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://xxc7dg0wghy5"]
+
+[ext_resource type="Script" uid="uid://cdi2moorjsrec" path="res://Scripts/Units/States/FriendlyExplosiveAttack.gd" id="1_xegsy"]
+
+[node name="FriendlyExplosiveAttack" type="Node2D" unique_id=1685020935 node_paths=PackedStringArray("muzzleFlashTimer", "betweenAttacksTimer")]
+script = ExtResource("1_xegsy")
+muzzleFlashTimer = NodePath("MuzzleFlashTimer")
+betweenAttacksTimer = NodePath("BetweenAttacksTimer")
+
+[node name="MuzzleFlashTimer" type="Timer" parent="." unique_id=297491959]
+
+[node name="BetweenAttacksTimer" type="Timer" parent="." unique_id=1718320849]
